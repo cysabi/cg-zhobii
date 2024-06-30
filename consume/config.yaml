@@ -1,0 +1,39 @@
+"random weapon":
+  weight: 1
+  desc: "Use the bot to pick a random weapon to select."
+
+"no sub weapons":
+  weight: 1
+  desc: "Players are not allowed to use sub weapons."
+
+"no special weapons":
+  weight: 1
+  desc: "Players are not allowed to use special weapons."
+
+"specific weapon class":
+  weight: 2
+  desc: "Players must all use weapons from a specific class, such as only shooters or only rollers."
+
+"low ink":
+  weight: 1
+  desc: "Ink usage is doubled, making players run out of ink faster."
+
+"squid only":
+  weight: 1
+  desc: "Players must remain in squid form as much as possible, limiting time in kid form."
+
+"reverse controls":
+  weight: 2
+  desc: "Players must invert their control scheme (e.g., use left for right and vice versa)."
+
+"stealth mode":
+  weight: 2
+  desc: "Players can only move while swimming in their ink, making stealth essential."
+
+"speed boost":
+  weight: 1
+  desc: "Players receive a speed boost, increasing movement speed by 25%."
+
+"limited vision":
+  weight: 2
+  desc: "Players' screen visibility is reduced, simulating low-light conditions."

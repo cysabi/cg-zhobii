@@ -1,1 +1,26 @@
 @import "tailwindcss";
+
+@theme {
+  --font-family-sans: "MapleStory", "system-ui";
+}
+
+@font-face {
+  font-family: "Harlow";
+  src: url("./harlowsi.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "MapleStory";
+  src: url("maplestory-bold.otf") format("opentype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "MapleStory";
+  src: url("maplestory-light.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}

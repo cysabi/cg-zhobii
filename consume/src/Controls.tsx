@@ -33,7 +33,7 @@ const App = (props: { bento: Accessor<State>; client: Client<State> }) => {
         >
           <span
             class={clsx(
-              "uppercase font-semibold px-1.5 p-2",
+              "uppercase font-bold px-1.5 p-2",
               option() ? "text-green-400" : "text-slate-400"
             )}
           >
@@ -44,7 +44,7 @@ const App = (props: { bento: Accessor<State>; client: Client<State> }) => {
               when={option()}
               fallback={<div class="text-lg text-slate-400 italic">none</div>}
             >
-              <div class="text-xl font-medium">{option()?.name}</div>
+              <div class="text-xl">{option()?.name}</div>
               <div>{option()?.desc}</div>
             </Show>
           </div>
@@ -79,7 +79,7 @@ const App = (props: { bento: Accessor<State>; client: Client<State> }) => {
             Cancel
           </button>
         </Show>
-        <div class="flex text-sm uppercase text-slate-400 font-semibold tracking-wide gap-5">
+        <div class="flex text-sm uppercase text-slate-400 font-bold tracking-wide gap-5">
           <div>
             total modifiers:{" "}
             <span class="text-slate-50 font-bold tracking-normal">

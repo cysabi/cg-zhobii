@@ -9,8 +9,8 @@ bento.box<State>(
     config: {},
     settings: {
       size: 720,
-      spinBase: 10,
-      spinRandom: 3,
+      spinBase: 8,
+      spinRandom: 4,
       maxSpeed: 2,
       idleSpeed: -0.0005,
       friction: 0.00075,

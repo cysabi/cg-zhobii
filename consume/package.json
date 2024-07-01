@@ -10,7 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@solidjs/router": "^0.13.6",
     "bento": "../lib/",
+    "clsx": "^2.1.1",
     "confbox": "^0.1.7",
     "consola": "^3.2.3",
     "gsap": "^3.12.5",

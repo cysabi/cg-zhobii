@@ -2,14 +2,32 @@ import bento from "bento";
 import { join } from "path";
 import { consola } from "consola";
 import { parseYAML } from "confbox";
-
-type State = {
-  config: Record<string, { weight: number; desc: string }>;
-};
+import type { State } from "./types";
 
 bento.box<State>(
   {
     config: {},
+    settings: {
+      size: 720,
+      spinBase: 10,
+      spinRandom: 3,
+      maxSpeed: 2,
+      idleSpeed: -0.0005,
+      friction: 0.00075,
+    },
+    status: { state: "idle" },
+    setStatus: (set, payload: State["status"]) => {
+      set((state) => {
+        state.status = payload;
+        consola.info(` Set status to ${JSON.stringify(payload)}`);
+      });
+    },
+    setSetting: (set, payload: [keyof State["settings"], number]) => {
+      set((state) => {
+        state.settings[payload[0]] = payload[1];
+        consola.info(` Set setting '${payload[0]}' to ${payload[1]}`);
+      });
+    },
     setConfig: async (set, payload) => {
       set((state) => {
         consola.box(`Serving at http://localhost:4400`);

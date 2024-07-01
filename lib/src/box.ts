@@ -6,12 +6,10 @@ import {
   serveStatic,
   toWebHandler,
   fromNodeMiddleware,
-  toNodeListener,
 } from "h3";
 import wsAdapter from "crossws/adapters/bun";
 import { Server as BentoServer } from "./server";
 import { join } from "path";
-import { listen } from "listhen";
 
 export type BentoBoxModel<S> = S | Actions<S>;
 

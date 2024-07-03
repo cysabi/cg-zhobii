@@ -1,4 +1,4 @@
-import { Accessor, createEffect, createMemo, Show } from "solid-js";
+import { Accessor, createMemo, Show } from "solid-js";
 import type { State } from "../types";
 import type { Client } from "bento/client";
 import clsx from "clsx";
@@ -14,10 +14,6 @@ const App = (props: { bento: Accessor<State>; client: Client<State> }) => {
         name: bento().status.option!,
       };
     } else return undefined;
-  });
-
-  createEffect(() => {
-    console.log(option());
   });
 
   return (

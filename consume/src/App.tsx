@@ -4,12 +4,10 @@ import {
   createMemo,
   createSignal,
   For,
-  Show,
 } from "solid-js";
+import pointer from "./pointer.png";
 import wheel from "./wheel.png";
 import line from "./line.png";
-import spinWav from "./spin.wav";
-import resultWav from "./result.wav";
 import type { State } from "../types";
 import type { Client } from "bento/client";
 import clsx from "clsx";
@@ -62,7 +60,6 @@ const App = (props: { bento: Accessor<State>; client: Client<State> }) => {
       velocity =
         props.bento().settings.spinBase +
         (Math.random() - 0.5) * props.bento().settings.spinRandom;
-      console.log(velocity);
     }
     return state;
   });
@@ -101,7 +98,7 @@ const App = (props: { bento: Accessor<State>; client: Client<State> }) => {
               : "text-slate-400"
           )}
         >
-          {props.bento().status.option || findOption().name}
+          {props.bento().status.option || findOption()?.name}
         </div>
       </div>
       <div
@@ -163,6 +160,9 @@ const App = (props: { bento: Accessor<State>; client: Client<State> }) => {
               )}
             </For>
           </div>
+        </div>
+        <div class="absolute inset-0">
+          <img class="h-full w-full rotate-90" src={pointer} />
         </div>
       </div>
     </div>

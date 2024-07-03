@@ -41,7 +41,7 @@ const App = (props: { bento: Accessor<State>; client: Client<State> }) => {
       breakpoints.push(next);
       return next;
     }, 0);
-    return breakpoints.toReversed();
+    return breakpoints.reverse();
   });
 
   const findOption = () => {

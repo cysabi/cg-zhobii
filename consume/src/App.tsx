@@ -45,15 +45,6 @@ const App = (props: { bento: Accessor<State>; client: Client<State> }) => {
   });
 
   const findOption = () => {
-    console.log(
-      breakpoints(),
-      breakpoints().map(
-        (bp) => bp - ((Math.PI / 2 + rotation()) % (2 * Math.PI))
-      ),
-      breakpoints()
-        .map((bp) => bp - ((Math.PI / 2 + rotation()) % (2 * Math.PI)))
-        .findLastIndex((bp) => bp > 0)
-    );
     const i = breakpoints()
       .map((bp) => bp - ((Math.PI / 2 + rotation()) % (2 * Math.PI)))
       .findLastIndex((bp) => bp > 0);
@@ -108,7 +99,7 @@ const App = (props: { bento: Accessor<State>; client: Client<State> }) => {
           style={{
             height: `${props.bento().settings.size}px`,
             width: `${props.bento().settings.size}px`,
-            rotate: `${rotation()}rad`,
+            transform: `rotate(${rotation()}rad)`,
           }}
         >
           <div class="relative">
@@ -117,7 +108,7 @@ const App = (props: { bento: Accessor<State>; client: Client<State> }) => {
                 return (
                   <div
                     class={
-                      "absolute flex flex-col items-center justify-end translate-x-[-50%] origin-top"
+                      "absolute flex flex-col items-center justify-end origin-top"
                     }
                     style={{
                       height: `${props.bento().settings.size / 2}px`,
@@ -125,7 +116,7 @@ const App = (props: { bento: Accessor<State>; client: Client<State> }) => {
                         props.bento().settings.size *
                         Math.tan(segment.angle / 2)
                       }px`,
-                      rotate: `${segment.rotate}rad`,
+                      transform: `translateX(-50%) rotate(${segment.rotate}rad)`,
                       "clip-path": "polygon(50% 0%, 0% 100%, 100% 100%)",
                     }}
                   >
@@ -153,16 +144,20 @@ const App = (props: { bento: Accessor<State>; client: Client<State> }) => {
                 <img
                   src={line}
                   class="absolute origin-center"
-                  style={{ rotate: `-${bp}rad` }}
+                  style={{ transform: `rotate(-${bp}rad)` }}
                 />
               )}
             </For>
           </div>
         </div>
         <div class="absolute inset-0">
-          <img class="h-full w-full rotate-90" src={pointer} />
+          <img
+            class="h-full w-full"
+            style={{ transform: `rotate(90deg)` }}
+            src={pointer}
+          />
         </div>
-        <div class="absolute right-0 translate-x-[100%]">
+        <div class="absolute right-0" style={{ transform: `translateX(100%)` }}>
           <div
             class={clsx(
               "flex flex-col w-md text-4xl",

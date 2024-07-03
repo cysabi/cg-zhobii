@@ -4,6 +4,7 @@ import {
   createMemo,
   createSignal,
   For,
+  Show,
 } from "solid-js";
 import pointer from "./pointer.png";
 import wheel from "./wheel.png";
@@ -44,8 +45,17 @@ const App = (props: { bento: Accessor<State>; client: Client<State> }) => {
   });
 
   const findOption = () => {
+    console.log(
+      breakpoints(),
+      breakpoints().map(
+        (bp) => bp - ((Math.PI / 2 + rotation()) % (2 * Math.PI))
+      ),
+      breakpoints()
+        .map((bp) => bp - ((Math.PI / 2 + rotation()) % (2 * Math.PI)))
+        .findLastIndex((bp) => bp > 0)
+    );
     const i = breakpoints()
-      .map((bp) => bp - (((1 / 2) * Math.PI + rotation()) % (2 * Math.PI)))
+      .map((bp) => bp - ((Math.PI / 2 + rotation()) % (2 * Math.PI)))
       .findLastIndex((bp) => bp > 0);
     return segments()[i];
   };
@@ -73,7 +83,7 @@ const App = (props: { bento: Accessor<State>; client: Client<State> }) => {
     if (props.bento().status.state === "idle") {
       distance = props.bento().settings.idleSpeed;
     }
-    setRotation((rotation() + distance) % (2 * Math.PI));
+    setRotation((rotation() + distance + 2 * Math.PI) % (2 * Math.PI));
     if (props.bento().status.state === "spin" && distance < 0.0001) {
       velocity = 0;
       props.client.act("setStatus", {
@@ -89,18 +99,6 @@ const App = (props: { bento: Accessor<State>; client: Client<State> }) => {
 
   return (
     <div class="h-screen w-screen flex flex-col gap-10 items-center justify-center overflow-clip">
-      <div>
-        <div
-          class={clsx(
-            "text-4xl",
-            props.bento().status.option
-              ? "text-black font-bold"
-              : "text-slate-400"
-          )}
-        >
-          {props.bento().status.option || findOption()?.name}
-        </div>
-      </div>
       <div
         class="relative flex items-center justify-center bg-center bg-cover"
         style={{ "background-image": `url('${wheel}')` }}
@@ -133,7 +131,7 @@ const App = (props: { bento: Accessor<State>; client: Client<State> }) => {
                   >
                     <div
                       class={clsx(
-                        "h-full w-full flex items-center justify-end pb-[3.25rem] text-xl",
+                        "h-full w-full flex items-center justify-end pb-14 text-xl",
                         props.bento().status.option
                           ? props.bento().status.option === segment.name
                             ? "text-white font-bold tracking-wide"
@@ -163,6 +161,23 @@ const App = (props: { bento: Accessor<State>; client: Client<State> }) => {
         </div>
         <div class="absolute inset-0">
           <img class="h-full w-full rotate-90" src={pointer} />
+        </div>
+        <div class="absolute right-0 translate-x-[100%]">
+          <div
+            class={clsx(
+              "flex flex-col w-md text-4xl",
+              props.bento().status.option
+                ? "text-black font-bold tracking-wide"
+                : "text-slate-400"
+            )}
+          >
+            <div>{props.bento().status.option || findOption()?.name}</div>
+            <Show when={props.bento().status.option}>
+              <div class="text-3xl font-normal text-slate-800">
+                {props.bento().config[props.bento().status.option!].desc}
+              </div>
+            </Show>
+          </div>
         </div>
       </div>
     </div>

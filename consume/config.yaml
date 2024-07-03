@@ -1,39 +1,91 @@
-"random weapon":
-  weight: 1
-  desc: "Use the bot to pick a random weapon to select."
-
-"no sub weapons":
-  weight: 1
-  desc: "Players are not allowed to use sub weapons."
-
-"no special weapons":
-  weight: 1
-  desc: "Players are not allowed to use special weapons."
-
-"specific weapon class":
+"Random Weapons":
   weight: 2
-  desc: "Players must all use weapons from a specific class, such as only shooters or only rollers."
+  desc: "Roll random weapons for the whole lobby. Each player in the lobby must use the weapon corresponding with their slot in the team list. Variants of the rolled weapons are not allowed."
 
-"low ink":
-  weight: 1
-  desc: "Ink usage is doubled, making players run out of ink faster."
-
-"squid only":
-  weight: 1
-  desc: "Players must remain in squid form as much as possible, limiting time in kid form."
-
-"reverse controls":
+"One Random Weapon":
   weight: 2
-  desc: "Players must invert their control scheme (e.g., use left for right and vice versa)."
+  desc: "Everyone uses the same singular randomly selected weapon. Variants of the rolled weapon are not allowed."
 
-"stealth mode":
+"Two Random Weapons":
   weight: 2
-  desc: "Players can only move while swimming in their ink, making stealth essential."
+  desc: "Roll two random weapons. Every player may select between these two weapons. There must be at least one of each weapon on both teams."
 
-"speed boost":
+"Random Weapon Mirror":
+  weight: 2
+  desc: "Roll a set of four random weapons. Each team may select which of their members uses each weapon, but each weapon must be used on your team."
+
+"Random Sub":
+  weight: 2
+  desc: "Everyone must use a weapon with a randomly selected sub weapon."
+
+"Random Special":
+  weight: 2
+  desc: "Everyone must use a weapon with a randomly selected special."
+
+"Random Weapon Class":
+  weight: 2
+  desc: "Everyone must use a weapon that is part of a randomly selected class, such as rollers, blasters, brellas, etc. Duplicate weapons are not allowed on either team."
+
+"Enemy Comp Swap":
   weight: 1
-  desc: "Players receive a speed boost, increasing movement speed by 25%."
+  desc: "Both teams must use the enemy's weapons from the previous game. If this is game 1, roll a new modifier. If you roll this after 'Trade a Player,' team comps are based on the scoreboard, not the traded players."
 
-"limited vision":
-  weight: 2
-  desc: "Players' screen visibility is reduced, simulating low-light conditions."
+"Team Comp Swap":
+  weight: 1
+  desc: "Both teams must use the same weapons from the previous game, but they must swap which player uses each weapon. If this is game 1, roll a new modifier. If you roll this after 'Trade a Player,' team comps are based on the scoreboard, not the traded players."
+
+"Sole Survivor":
+  weight: 1
+  desc: "Everyone uses the same singular randomly selected weapon, except for the member listed last on each team. This member can select any weapon except for the weapon that was randomly selected."
+
+"Puppeteer":
+  weight: 1
+  desc: "Each team must select two weapons for the other team to use. Those weapons must be present in the other team's comp."
+
+"Turf War":
+  weight: 1
+  desc: "Play Turf War instead of the mode listed on the map list. Roll an additional modifier to accompany this effect."
+
+"Trade a Player":
+  weight: 1
+  desc: "Both teams must trade one of their players to the other team. Your team will choose which teammate to send. The traded teammate can sabotage the enemy team and relay information over VC. Idling is not allowed. Return teammates after the game."
+
+"Rubberband Map Pick":
+  weight: 1
+  desc: "The team with less points changes the current map/mode to one of their choosing. A map from outside of the map pool may be selected. If both teams are tied, do not select a new map. Roll an additional modifier to accompany this effect."
+
+"Rubberband Modifier Pick":
+  weight: 1
+  desc: "The team with less points chooses the modifier for this round. If both teams are tied, roll a new modifier. If you select a modifier that calls to roll an additional modifier, still do so."
+
+"Permanent Random Weapon":
+  weight: 1
+  desc: "Roll a number from 1 to 4. On each team, the corresponding player must use their weapon from this game for the rest of the set, regardless of what other modifiers say. If this modifier is rolled more than once, the same player cannot have their permanent weapon changed. Roll an additional modifier to accompany this effect."
+
+"Sacrificial Specials":
+  weight: 1
+  desc: "If a player uses a special during this game, they must jump off the map after the user's role in using said special is complete. Any weapons are allowed."
+
+"Random Gear Ability":
+  weight: 1
+  desc: "Roll a single random gear ability. The main abilities on all of your gear must match the randomized result. Roll an additional modifier to accompany this effect."
+
+"Sprinkler Duel":
+  weight: 1
+  desc: "All players must use a weapon with Sprinkler. You cannot fire your main weapon in this game. Specials are allowed. This game must be played on SZ."
+
+"Relay Race":
+  weight: 1
+  desc: "Only one player may move from their spawn location at a time. Start with the player on the furthest left slot of the scoreboard. Whenever they die, the next player must take the field until all four players have taken a turn. Team comps cannot contain weapons from the same weapon class. No Trizooka weapons can be selected. This game must be played on TC."
+
+"Detensify Action":
+  weight: 1
+  desc: "Players may only select the following low-accuracy weapons: Splattershot Jr, Aerospray, Sploosh-o-matic, Inkbrush, Octobrush, Clash Blaster, and their alternate kits."
+
+"Dress for the Weather":
+  weight: 1
+  desc: "All players must wear Summer-themed gear. This includes sunglasses, swim goggles/masks, short/no sleeve shirts, open-toed shoes, as well as the life vest and flippers. Roll an additional modifier to accompany this effect."
+
+"No Man's Land":
+  weight: 1
+  desc: "Randomly generate a map/mode from the Evil Maplist and play on that one instead. If you are currently in the Underground Bracket, you can generate a map from the default maplist as a treat. Roll an additional modifier to accompany this effect."

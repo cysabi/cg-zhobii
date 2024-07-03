@@ -79,7 +79,7 @@ const App = (props: { bento: Accessor<State>; client: Client<State> }) => {
           <div>
             total modifiers:{" "}
             <span class="text-slate-50 font-bold tracking-normal">
-              {Object.keys(bento().config).length}
+              {bento().keys}
             </span>
           </div>
           <div>

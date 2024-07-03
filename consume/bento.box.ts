@@ -7,6 +7,7 @@ import type { State } from "./types";
 bento.box<State>(
   {
     config: {},
+    keys: 0,
     settings: {
       size: 2800 / 3,
       spinBase: 8,
@@ -34,7 +35,8 @@ bento.box<State>(
           `Serving at http://localhost:4400\nDashboard at http://localhost:4400/#/dashboard`
         );
         state.config = payload;
-        consola.success(` Loaded ${Object.keys(payload).length} modifiers!`);
+        state.keys = Object.keys(payload).length;
+        consola.success(` Loaded ${state.keys} modifiers!`);
       });
     },
   },

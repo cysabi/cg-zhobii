@@ -1,5 +1,6 @@
 export type State = {
   config: Record<string, { weight: number; desc: string }>;
+  keys: number;
   settings: {
     size: number;
     spinBase: number;

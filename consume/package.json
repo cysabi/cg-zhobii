@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "compile": "vite build; bun build --compile --target=bun-windows-x64 ./bento.box.ts --outfile cg-party-wheel; zip -r cg-party-wheel.zip cg-party-wheel.exe dist config.yaml",
+    "build": "tsc && vite build",
+    "compile": "bun build --compile --target=bun-windows-x64 ./bento.box.ts --outfile cg-party-wheel",
+    "zip": "zip -r cg-party-wheel.zip cg-party-wheel.exe dist config.yaml",
     "preview": "vite preview"
   },
   "dependencies": {

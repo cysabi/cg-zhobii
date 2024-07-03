@@ -30,7 +30,9 @@ bento.box<State>(
     },
     setConfig: async (set, payload) => {
       set((state) => {
-        consola.box(`Serving at http://localhost:4400`);
+        consola.box(
+          `Serving at http://localhost:4400\nDashboard at http://localhost:4400/#/dashboard`
+        );
         state.config = payload;
         consola.success(` Loaded ${Object.keys(payload).length} modifiers!`);
       });

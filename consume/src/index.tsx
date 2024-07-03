@@ -1,6 +1,6 @@
 /* @refresh reload */
 import { render } from "solid-js/web";
-import { Route, Router } from "@solidjs/router";
+import { Route, HashRouter } from "@solidjs/router";
 
 import { Client } from "bento/client";
 import { Accessor, createSignal, Show } from "solid-js";
@@ -18,7 +18,7 @@ client.dispatch = dispatch;
 
 render(
   () => (
-    <Router>
+    <HashRouter>
       <Route
         path="/"
         component={() => (
@@ -36,7 +36,7 @@ render(
           </Show>
         )}
       />
-    </Router>
+    </HashRouter>
   ),
   root!
 );

@@ -7,8 +7,13 @@ import {
   Show,
 } from "solid-js";
 import pointer from "./pointer.png";
-import wheel from "./wheel.png";
+import ring from "./ring.png";
+import back from "./back.png";
 import line from "./line.png";
+import up from "./up.png";
+import down from "./down.png";
+import gradient from "./gradient.png";
+// import bg from "./bg.png";
 import type { State } from "../types";
 import type { Client } from "bento/client";
 import clsx from "clsx";
@@ -67,7 +72,10 @@ const App = (props: { bento: Accessor<State>; client: Client<State> }) => {
   function process(delta: number) {
     const t = delta - prevDelta;
     velocity = Math.max(
-      velocity - velocity * props.bento().settings.friction * t,
+      velocity -
+        Math.min(velocity, props.bento().settings.maxSpeed) *
+          props.bento().settings.friction *
+          t,
       0
     );
     let distance = Math.min(velocity / t, props.bento().settings.maxSpeed);
@@ -89,11 +97,13 @@ const App = (props: { bento: Accessor<State>; client: Client<State> }) => {
   window.requestAnimationFrame(process);
 
   return (
-    <div class="h-screen w-screen flex flex-col gap-10 items-center justify-center overflow-clip">
-      <div
-        class="relative flex items-center justify-center bg-center bg-cover"
-        style={{ "background-image": `url('${wheel}')` }}
-      >
+    <div
+      class="h-screen w-screen flex gap-10 items-center justify-center overflow-clip"
+      // style={{ "background-image": `url('${bg}')` }}
+    >
+      <div class="relative flex items-center justify-center">
+        <img class="absolute inset-0" src={back} />
+        <img class="absolute inset-0" src={ring} />
         <div
           class="overflow-clip rounded-full flex items-center justify-center"
           style={{
@@ -125,11 +135,18 @@ const App = (props: { bento: Accessor<State>; client: Client<State> }) => {
                         "h-full w-full flex items-center justify-end pb-14 text-xl",
                         props.bento().status.option
                           ? props.bento().status.option === segment.name
-                            ? "text-white font-bold tracking-wide"
-                            : "text-slate-400"
-                          : "text-white"
+                            ? "text-theme-white"
+                            : "text-theme-subtle"
+                          : "text-theme-text"
                       )}
-                      style={{ "writing-mode": "vertical-lr" }}
+                      style={{
+                        "writing-mode": "vertical-lr",
+                        ...(props.bento().status.option === segment.name
+                          ? {
+                              "text-shadow": "var(--color-theme-glow) 0 0 5px",
+                            }
+                          : {}),
+                      }}
                     >
                       {segment.name}
                     </div>
@@ -158,23 +175,67 @@ const App = (props: { bento: Accessor<State>; client: Client<State> }) => {
           />
         </div>
         <div class="absolute right-0" style={{ transform: `translateX(100%)` }}>
-          <div
-            class={clsx(
-              "flex flex-col w-md text-4xl",
-              props.bento().status.option
-                ? "text-black font-bold tracking-wide"
-                : "text-slate-400"
-            )}
-          >
-            <div>{props.bento().status.option || findOption()?.name}</div>
+          <div class="w-3xl ml-12 flex flex-col gap-6">
+            <div class="relative font-['Harlowsi'] text-7xl p-4">
+              <Show
+                when={props.bento().status.option}
+                fallback={
+                  <div class="text-theme-subtle">{findOption()?.name}</div>
+                }
+              >
+                <div
+                  class="absolute inset-0 p-4 overflow-visible text-transparent bg-cover bg-center"
+                  style={{
+                    transform:
+                      "translateY(9px) translateX(9px) scaleX(1.0125) scaleY(1.025)",
+                    "background-image": `url('${gradient}')`,
+                    "-webkit-background-clip": "text",
+                  }}
+                >
+                  {props.bento().status.option}
+                </div>
+                <div
+                  class="absolute inset-0 p-4 overflow-visible text-transparent bg-[#160094]/85"
+                  style={{
+                    transform: "translateY(4px) translateX(4px)",
+                    "-webkit-background-clip": "text",
+                  }}
+                >
+                  {props.bento().status.option}
+                </div>
+                <div
+                  class="text-theme-white"
+                  style={{ transform: "translateY(0px)" }}
+                >
+                  {props.bento().status.option}
+                </div>
+              </Show>
+            </div>
             <Show when={props.bento().status.option}>
-              <div class="text-3xl font-normal text-slate-800">
-                {props.bento().config[props.bento().status.option!].desc}
+              <div class="flex flex-col">
+                <img
+                  src={up}
+                  class="w-full z-10"
+                  style={{
+                    transform: "translateY(8px)",
+                  }}
+                />
+                <div class="text-3xl mx-4 p-11 leading-relaxed text-theme-text bg-[#01002b]/70">
+                  {props.bento().config[props.bento().status.option!].desc}
+                </div>
+                <img
+                  src={down}
+                  class="w-full z-10"
+                  style={{
+                    transform: "translateY(-8px)",
+                  }}
+                />
               </div>
             </Show>
           </div>
         </div>
       </div>
+      <div class="w-3xl ml-12" />
     </div>
   );
 };

@@ -4,16 +4,15 @@ import {
   defineEventHandler,
   defineWebSocketHandler,
   serveStatic,
-  toWebHandler,
   fromNodeMiddleware,
+  toNodeListener,
+  toWebHandler,
 } from "h3";
 import wsAdapter from "crossws/adapters/bun";
 import { Server as BentoServer } from "./server";
 import { join } from "path";
 
 export type BentoBoxModel<S> = S | Actions<S>;
-
-const DEV_MODE = false;
 
 export const box = async <S extends Record<string, unknown>>(
   model: BentoBoxModel<S>,
@@ -35,13 +34,13 @@ export const box = async <S extends Record<string, unknown>>(
 
   const app = createApp();
 
-  if (DEV_MODE) {
-    // const createViteServer = (await import("vite")).createServer;
-    // const vite = await createViteServer({
-    //   server: { middlewareMode: true },
-    //   build: { target: "chrome95" },
-    // });
-    // app.use(fromNodeMiddleware(vite.middlewares));
+  if (false) {
+    const createViteServer = (await import("vite")).createServer;
+    const vite = await createViteServer({
+      server: { middlewareMode: true },
+      build: { target: "chrome95", sourcemap: true },
+    });
+    app.use(fromNodeMiddleware(vite.middlewares));
   } else {
     app.use(
       "/",

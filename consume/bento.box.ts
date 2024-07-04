@@ -10,11 +10,11 @@ bento.box<State>(
     keys: 0,
     settings: {
       size: 2800 / 3,
-      spinBase: 8,
-      spinRandom: 4,
+      spinBase: 5,
+      spinRandom: 2,
       maxSpeed: 2,
       idleSpeed: -0.0005,
-      friction: 0.00075,
+      friction: 0.001,
     },
     status: { state: "idle" },
     setStatus: (set, payload: State["status"]) => {

@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "bun --bun ./bento.box.ts",
     "build": "tsc && vite build",
     "compile": "bun build --compile --target=bun-windows-x64 ./bento.box.ts --outfile cg-party-wheel",
     "zip": "zip -r cg-party-wheel.zip cg-party-wheel.exe dist config.yaml",

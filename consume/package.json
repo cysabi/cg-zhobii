@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "bun --bun ./bento.box.ts",
     "build": "tsc && vite build",
-    "compile": "bun build --compile --target=bun-windows-x64 ./bento.box.ts --outfile cg-party-wheel",
-    "zip": "zip -r cg-party-wheel.zip cg-party-wheel.exe dist config.yaml",
+    "compile": "bun build --compile --target=bun-windows-x64 ./bento.box.ts --outfile cg-zhobii",
+    "zip": "zip -r cg-zhobii.zip cg-zhobii.exe dist config.yaml",
     "preview": "vite preview"
   },
   "dependencies": {

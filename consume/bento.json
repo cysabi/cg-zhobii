@@ -1,0 +1,94 @@
+{
+  "teams": [],
+  "matches": [
+    {
+      "teamA": null,
+      "teamB": null,
+      "games": [
+        {
+          "map": null
+        },
+        {
+          "map": null
+        },
+        {
+          "map": null,
+          "swapSides": false,
+          "scoreline": [
+            0,
+            0
+          ]
+        },
+        {
+          "map": null,
+          "swapSides": false,
+          "scoreline": [
+            0,
+            0
+          ]
+        },
+        {
+          "map": null
+        },
+        {
+          "map": null
+        },
+        {
+          "map": null,
+          "swapSides": false,
+          "scoreline": [
+            0,
+            0
+          ]
+        }
+      ]
+    },
+    {
+      "teamA": null,
+      "teamB": null,
+      "games": [
+        {
+          "map": null
+        },
+        {
+          "map": null
+        },
+        {
+          "map": null,
+          "swapSides": false,
+          "scoreline": [
+            0,
+            0
+          ]
+        },
+        {
+          "map": null,
+          "swapSides": false,
+          "scoreline": [
+            0,
+            0
+          ]
+        },
+        {
+          "map": null
+        },
+        {
+          "map": null
+        },
+        {
+          "map": null,
+          "swapSides": false,
+          "scoreline": [
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  ],
+  "currentMatch": null,
+  "timer": {
+    "value": 0,
+    "on": false
+  }
+}

@@ -3,12 +3,11 @@ import { render } from "solid-js/web";
 import { Route, HashRouter } from "@solidjs/router";
 
 import { Client } from "bento/client";
-import { Accessor, createSignal, Show } from "solid-js";
+import { createSignal, Show } from "solid-js";
 import type { State } from "../types";
 
 import "./index.css";
 import App from "./App";
-import Controls from "./Controls";
 
 const root = document.getElementById("root");
 
@@ -23,19 +22,18 @@ render(
         path="/"
         component={() => (
           <Show when={bento() !== undefined}>
-            <App bento={bento as Accessor<State>} client={client} />
+            <App bento={bento()!} client={client} />
           </Show>
         )}
       />
-
-      <Route
+      {/* <Route
         path="/dashboard"
         component={() => (
           <Show when={bento() !== undefined}>
             <Controls bento={bento as Accessor<State>} client={client} />
           </Show>
         )}
-      />
+      /> */}
     </HashRouter>
   ),
   root!

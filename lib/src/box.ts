@@ -34,7 +34,7 @@ export const box = async <S extends Record<string, unknown>>(
 
   const app = createApp();
 
-  if (false) {
+  if (true) {
     const createViteServer = (await import("vite")).createServer;
     const vite = await createViteServer({
       server: { middlewareMode: true },
@@ -75,4 +75,11 @@ export const box = async <S extends Record<string, unknown>>(
       return handleHttp(req);
     },
   });
+
+  // const serve = createServer();
+  // const { handleUpgrade } = wsAdapter();
+  // serve.on("upgrade", handleUpgrade);
+  // return serve.listen(4400);
+
+  // return listen(toNodeListener(app), { ws: app.websocket, port: 4400 });
 };

@@ -1,11 +1,11 @@
-# `cg-party-wheel`
-> randomizer for party wheel
+# `cg-zhobii`
+> broadcast graphics for the unofficial gc cast
 
-A web-based wheel element that you can configure and spin! 
+Some browser sources for the unofficial game changers broadcast! 
 - Using a beta version of [bento](https://github.com/cysabi/bento)!
 
 ## usage
-Download `cg-party-wheel.zip` from the most recent release, unzip, and run!
+Download `cg-zhobii.zip` from the most recent release, unzip, and run!
 - Update the `config.yaml` file with your own modifier names, `desc`riptions, and `weight`s.
 
 ## local setup
@@ -16,7 +16,7 @@ Download `cg-party-wheel.zip` from the most recent release, unzip, and run!
 - There are 2 parts: the server binary, and the static dist folder
 - `bun run build` to build `dist/`
 - `bun run compile` to compile the bento server for windows, make sure to set `DEV_ENV=false`!
-- `bun run zip` to zip up `dist/`, `config.yaml`, and `cg-party-wheel.exe`!
+- `bun run zip` to zip up `dist/`, `config.yaml`, and `cg-zhobii.exe`!
 
 ---
 

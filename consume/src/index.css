@@ -1,30 +1,3 @@
-@import "tailwindcss";
-
-@theme {
-  --font-family-sans: "MapleStory";
-  --color-theme-glow: #d229aa;
-  --color-theme-white: #fff4ff;
-  --color-theme-text: #d3d0fe;
-  --color-theme-subtle: color-mix(in srgb, #9c8cff 75%, transparent);
-}
-
-@font-face {
-  font-family: "Harlowsi";
-  src: url("harlowsi.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "MapleStory";
-  src: url("maplestory-bold.otf") format("opentype");
-  font-weight: bold;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "MapleStory";
-  src: url("maplestory-light.otf") format("opentype");
-  font-weight: normal;
-  font-style: normal;
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

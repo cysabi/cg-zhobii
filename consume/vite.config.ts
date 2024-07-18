@@ -1,5 +1,4 @@
 import { defineConfig } from "vite";
-import tailwindcss from "@tailwindcss/vite";
 import solid from "vite-plugin-solid";
 
 export default defineConfig({
@@ -7,5 +6,5 @@ export default defineConfig({
     target: "chrome95",
     sourcemap: true,
   },
-  plugins: [solid(), tailwindcss()],
+  plugins: [solid()],
 });

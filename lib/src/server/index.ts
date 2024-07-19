@@ -21,6 +21,7 @@ export class Server<S extends Record<string, unknown>> {
 
   constructor(config: ServerConfig<S>) {
     this.#state = new LowSync<S>(new JSONFileSync("bento.json"), config.state);
+    this.#state.read();
     this.#state.write();
     this.#actions = config.actions;
     this.#clients = new Map();
@@ -64,6 +65,9 @@ export class Server<S extends Record<string, unknown>> {
   }
   #handleActionStream(setter: Setter<S>) {
     this.#state.update(setter);
+    Array.from(this.#clients.keys()).forEach((ws) => {
+      this.#emit({ ws });
+    });
   }
 
   #emit({ ws }: Emit) {

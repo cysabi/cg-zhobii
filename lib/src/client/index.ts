@@ -1,19 +1,17 @@
-import icepick from "icepick";
 import { pack, unpack } from "msgpackr";
 
 export class Client<S> {
-  dispatch: null | ((state: S) => void) = null;
-  #state: S;
+  #dispatch;
   #ws: WebSocket;
 
   act(action: string, payload: any) {
     this.#ws.send(pack({ type: "action", action, payload }));
   }
 
-  constructor({ initial }: { initial?: S } = {}) {
-    this.#state = icepick.freeze(initial || ({} as S));
+  constructor(dispatch: (state: S) => void) {
+    this.#dispatch = dispatch;
 
-    this.#ws = new WebSocket(`ws://${window.location.host}/_ws`);
+    this.#ws = new WebSocket(`ws://${window.location.hostname}:4400/_ws`);
     this.#ws.binaryType = "arraybuffer";
     this.#ws.onopen = () => {
       this.#ws.send(pack({ type: "init" }));
@@ -23,10 +21,7 @@ export class Client<S> {
 
       switch (data.type) {
         case "emit": {
-          this.#state = data.state;
-          if (this.dispatch) {
-            this.dispatch(this.#state);
-          }
+          this.#dispatch(data.state);
         }
       }
     };

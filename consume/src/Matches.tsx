@@ -1,22 +1,10 @@
 import { createMemo, Index, Show } from "solid-js";
 import { FormControl, InputLabel, MenuItem, Select } from "@suid/material";
-import bento, { client } from "./utils";
+import bento, { client, getSeries } from "./utils";
 
 const Matches = () => {
   const teams = createMemo(() => bento().teams);
   const matches = createMemo(() => bento().matches);
-
-  const getSeries = (match: ReturnType<typeof matches>[0]) => {
-    let series = [0, 0];
-    [match.games[2], match.games[3], match.games[6]].forEach((game) => {
-      game.scoreline.forEach((score, i) => {
-        if (score === 13) {
-          series[i] += 1;
-        }
-      });
-    });
-    return series;
-  };
 
   return (
     <div class="flex flex-col gap-5">
@@ -27,20 +15,20 @@ const Matches = () => {
               {(["teamA", "teamB"] as const).map((teamI, i) => (
                 <>
                   <Show when={i}>
-                    <div class="font-bold text-3xl tabular-nums">
+                    <div class="font-bold text-3xl">
                       {getSeries(match())[0]}
                     </div>
-                    <div class="uppercase text-2xl font-semibold text-slate-500 tracking-wider">
+                    <div class="uppercase text-2xl font-medium text-slate-500 tracking-wider">
                       VS
                     </div>
-                    <div class="font-bold text-3xl tabular-nums">
+                    <div class="font-bold text-3xl">
                       {getSeries(match())[1]}
                     </div>
                   </Show>
                   <FormControl
                     fullWidth
                     variant="filled"
-                    class="bg-slate-950/75 rounded-t"
+                    class="bg-slate-950/75 rounded-t overflow-clip"
                   >
                     <InputLabel>
                       {{ teamA: "Team A", teamB: "Team B" }[teamI]}
@@ -56,14 +44,14 @@ const Matches = () => {
                         });
                       }}
                     >
+                      <MenuItem value={-1}>
+                        <div class="text-slate-500 italic">empty</div>
+                      </MenuItem>
                       <Index each={teams()}>
                         {(team) => (
                           <MenuItem value={team().name}>{team().name}</MenuItem>
                         )}
                       </Index>
-                      <MenuItem value={-1}>
-                        <div class="text-slate-500 italic">none</div>
-                      </MenuItem>
                     </Select>
                   </FormControl>
                 </>

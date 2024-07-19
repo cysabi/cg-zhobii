@@ -38,6 +38,55 @@ bento.box<State>({
     value: 0,
     on: false,
   },
+  setGame(set, payload) {
+    set((state) => {
+      if (payload.i === undefined) {
+        return console.error("setGame: `i` is undefined!");
+      }
+      if (state.currentMatch === null) {
+        return console.error("setGame: `currentMatch` is null!");
+      }
+      const game = state.matches[state.currentMatch].games[payload.i];
+      if (payload.map) {
+        game.map = payload.map === -1 ? null : payload.map;
+      }
+      if (payload.swap) {
+        if ("swapSides" in game) {
+          game.swapSides = !game.swapSides;
+        } else {
+          console.error("setGame: no property `swapSides`");
+        }
+      }
+      if (payload.score0 !== undefined) {
+        let score = parseInt(payload.score0);
+        if (!("scoreline" in game)) {
+          console.error("setGame: no property `scoreline`");
+        } else if (isNaN(score)) {
+          console.error("setGame: invalid `score0`");
+        } else {
+          score = Math.min(Math.max(score, 0), 13);
+          if (score === 13 && game.scoreline[1] === 13) {
+            game.scoreline[1] = game.scoreline[0];
+          }
+          game.scoreline[0] = score;
+        }
+      }
+      if (payload.score1 !== undefined) {
+        let score = parseInt(payload.score1);
+        if (!("scoreline" in game)) {
+          console.error("setGame: no property `scoreline`");
+        } else if (isNaN(score)) {
+          console.error("setGame: invalid `score1`");
+        } else {
+          score = Math.min(Math.max(score, 0), 13);
+          if (score === 13 && game.scoreline[0] === 13) {
+            game.scoreline[0] = game.scoreline[1];
+          }
+          game.scoreline[1] = score;
+        }
+      }
+    });
+  },
   setMatchTeams(set, payload) {
     set((state) => {
       if (payload.teamA) {

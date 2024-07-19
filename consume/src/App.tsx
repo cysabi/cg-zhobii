@@ -1,4 +1,10 @@
-import { ParentProps } from "solid-js";
+import type { ParentProps } from "solid-js";
+import {
+  createTheme,
+  StyledEngineProvider,
+  ThemeProvider,
+} from "@suid/material";
+import colors from "tailwindcss/colors";
 import CurrentMatch from "./CurrentMatch";
 import Matches from "./Matches";
 import Timer from "./Timer";
@@ -6,26 +12,30 @@ import Teams from "./Teams";
 
 const App = () => {
   return (
-    <main class="min-h-screen text-slate-50 bg-slate-900 font-xl">
-      <div class="flex gap-10 p-10">
-        <div class="flex-1 flex">
-          <Section title="Current Match">
-            <CurrentMatch />
-          </Section>
-        </div>
-        <div class="flex-1 flex flex-col gap-10">
-          <Section title="Matches">
-            <Matches />
-          </Section>
-          <Section title="Timer">
-            <Timer />
-          </Section>
-          <Section title="Teams">
-            <Teams />
-          </Section>
-        </div>
-      </div>
-    </main>
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        <main class="min-h-screen text-slate-50 bg-slate-900 font-[K2D]">
+          <div class="flex gap-10 p-10">
+            <div class="flex-1 flex">
+              <Section title="Current Match">
+                <CurrentMatch />
+              </Section>
+            </div>
+            <div class="flex-1 flex flex-col gap-10">
+              <Section title="Matches">
+                <Matches />
+              </Section>
+              <Section title="Timer">
+                <Timer />
+              </Section>
+              <Section title="Teams">
+                <Teams />
+              </Section>
+            </div>
+          </div>
+        </main>
+      </ThemeProvider>
+    </StyledEngineProvider>
   );
 };
 
@@ -37,5 +47,33 @@ const Section = (props: ParentProps<{ title: string }>) => (
     {props.children}
   </div>
 );
+
+const theme = createTheme({
+  palette: {
+    mode: "dark",
+    primary: { main: colors.indigo[300] },
+    secondary: { main: colors.slate[500] },
+    error: { main: colors.pink[400] },
+    warning: { main: colors.amber[400] },
+    info: { main: colors.sky[400] },
+    success: { main: colors.green[400] },
+    grey: {
+      ...colors.slate,
+      A100: colors.slate[100],
+      A200: colors.slate[200],
+      A400: colors.slate[400],
+      A700: colors.slate[700],
+    },
+    text: {
+      primary: colors.slate[50],
+      secondary: colors.slate[400],
+      disabled: colors.slate[600],
+    },
+    background: { paper: colors.slate[950] },
+  },
+  typography: {
+    fontFamily: "K2D",
+  },
+});
 
 export default App;

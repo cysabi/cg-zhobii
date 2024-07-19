@@ -5,24 +5,24 @@
       "logo_url": "",
       "rosters": [
         {
-          "name": "FLY sonder",
-          "role": "d"
-        },
-        {
-          "name": "person 2",
+          "name": "sonder",
           "role": "i"
         },
         {
-          "name": "person 3",
-          "role": "s"
-        },
-        {
-          "name": "person 4",
+          "name": "sonder",
           "role": "c"
         },
         {
-          "name": "person 5",
-          "role": "f"
+          "name": "sonder",
+          "role": "d"
+        },
+        {
+          "name": "sonder",
+          "role": "i"
+        },
+        {
+          "name": "sonder",
+          "role": "s"
         }
       ]
     },
@@ -31,24 +31,24 @@
       "logo_url": "",
       "rosters": [
         {
-          "name": "emzraline",
+          "name": "florescent",
           "role": "d"
         },
         {
-          "name": "person 2",
-          "role": "i"
-        },
-        {
-          "name": "person 3",
+          "name": "Noia",
           "role": "s"
         },
         {
-          "name": "person 4",
-          "role": "c"
+          "name": "sarahcat",
+          "role": "f"
         },
         {
-          "name": "person 5",
-          "role": "f"
+          "name": "alexis",
+          "role": "i"
+        },
+        {
+          "name": "meL",
+          "role": "s"
         }
       ]
     }
@@ -59,39 +59,39 @@
       "teamB": "FlyQuest RED",
       "games": [
         {
-          "map": null
+          "map": "haven"
         },
         {
-          "map": null
+          "map": "haven"
         },
         {
           "map": null,
           "swapSides": false,
           "scoreline": [
-            0,
-            0
+            4,
+            13
           ]
         },
         {
-          "map": null,
-          "swapSides": false,
+          "map": "icebox",
+          "swapSides": true,
           "scoreline": [
-            0,
-            0
+            13,
+            11
           ]
         },
         {
-          "map": null
+          "map": "fracture"
         },
         {
-          "map": null
+          "map": "pearl"
         },
         {
-          "map": null,
-          "swapSides": false,
+          "map": "abyss",
+          "swapSides": true,
           "scoreline": [
             0,
-            0
+            13
           ]
         }
       ]
@@ -101,17 +101,17 @@
       "teamB": "Shopify Rebellion",
       "games": [
         {
-          "map": null
+          "map": "breeze"
         },
         {
           "map": null
         },
         {
-          "map": null,
-          "swapSides": false,
+          "map": -1,
+          "swapSides": true,
           "scoreline": [
-            0,
-            0
+            12,
+            13
           ]
         },
         {
@@ -141,7 +141,7 @@
   ],
   "currentMatch": 0,
   "timer": {
-    "on": false,
-    "value": 600
+    "on": true,
+    "value": 0
   }
 }

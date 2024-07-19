@@ -142,6 +142,6 @@
   "currentMatch": 0,
   "timer": {
     "on": false,
-    "value": 404
+    "value": 600
   }
 }

@@ -48,7 +48,7 @@ const Matches = () => {
                     <Select
                       value={match()[teamI]}
                       label={teamI}
-                      class="min-w-64"
+                      class="w-full"
                       onChange={(e) => {
                         client.act("setMatchTeams", {
                           match: matchI,

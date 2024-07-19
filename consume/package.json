@@ -11,6 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@solid-primitives/upload": "^0.0.117",
     "@solidjs/router": "^0.13.6",
     "@suid/material": "^0.16.0",
     "@suid/types": "^0.6.0",

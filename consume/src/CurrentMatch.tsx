@@ -11,7 +11,7 @@ const CurrentMatch = () => {
       <Select
         value={currentMatch()}
         label="Select Match"
-        class="min-w-64"
+        class="w-full"
         onChange={(e) => {
           client.act("setCurrentMatch", e.target.value);
         }}

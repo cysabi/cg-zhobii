@@ -11,8 +11,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@material-tailwind/html": "^2.2.2",
     "@solidjs/router": "^0.13.6",
+    "@suid/material": "^0.16.0",
+    "@suid/types": "^0.6.0",
+    "@suid/vite-plugin": "^0.2.0",
     "bento": "../lib/",
     "clsx": "^2.1.1",
     "confbox": "^0.1.7",
@@ -25,8 +27,8 @@
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.39",
     "tailwindcss": "^3.4.6",
-    "typescript": "^5.4.5",
-    "vite": "^5.3.1",
+    "typescript": "^5.5.3",
+    "vite": "^5.3.4",
     "vite-plugin-solid": "^2.10.2"
   }
 }

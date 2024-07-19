@@ -1,33 +1,36 @@
-import { Button, TextField } from "@mui/material";
-import { useState } from "react";
-import useReplicants from "./utils";
-import { Replicants } from "src/shared/replicants";
+import { Accessor, createMemo, createSignal } from "solid-js";
+import { Button, TextField } from "@suid/material";
+import bento, { client } from "./utils";
 import clsx from "clsx";
+import { State } from "../types";
 
 const Timer = () => {
-  const timer = useReplicants(({ LIVE }) => LIVE.timer);
-  const [input, setInput] = useState<string | null>(null);
-  const value = input === null ? encodeTime(timer.value) : input;
+  const timer = createMemo(() => bento().timer);
+
+  const [input, setInput] = createSignal<string | null>(null);
+  const value = createMemo(() =>
+    input() === null ? encodeTime(timer().value) : input()
+  );
 
   return (
-    <div className="flex gap-3">
+    <div class="flex gap-3">
       <Button
         variant="contained"
-        className={clsx({
-          "bg-green-400 hover:bg-green-400/80": !timer.on,
-          "bg-red-400 hover:bg-red-400/80": timer.on,
+        class={clsx({
+          "bg-green-400 hover:bg-green-400/80": !timer().on,
+          "bg-red-400 hover:bg-red-400/80": timer().on,
         })}
-        onClick={() => nodecg.sendMessage("timer::on", !timer.on)}
+        onClick={() => client.act("setTimer", { on: !timer().on })}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
-          className={clsx("h-8 w-8", {
-            "text-green-950": !timer.on,
-            "text-red-950": timer.on,
+          class={clsx("h-8 w-8", {
+            "text-green-950": !timer().on,
+            "text-red-950": timer().on,
           })}
         >
-          {timer.on ? (
+          {timer().on ? (
             <path
               fill="currentColor"
               d="M9 16h6q.425 0 .713-.288T16 15V9q0-.425-.288-.712T15 8H9q-.425 0-.712.288T8 9v6q0 .425.288.713T9 16m3 6q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22m0-2q3.35 0 5.675-2.325T20 12t-2.325-5.675T12 4T6.325 6.325T4 12t2.325 5.675T12 20m0-8"
@@ -41,16 +44,18 @@ const Timer = () => {
         </svg>
       </Button>
       <TextField
-        className="bg-grey-900 rounded"
+        class="bg-grey-900 rounded flex-1"
         label="Timer"
-        value={value}
-        onChange={(e) => setInput(e.target.value.replace(/[^\d:]+/g, ""))}
+        value={value()}
+        onChange={(e) =>
+          setInput(e.currentTarget.value.replace(/[^\d:]+/g, ""))
+        }
         onBlur={(e) => {
-          nodecg.sendMessage("timer::value", decodeTime(e.target.value));
+          client.act("setTimer", { value: decodeTime(e.currentTarget.value) });
           setInput(null);
         }}
         InputProps={{
-          className: "font-mono",
+          class: "font-mono",
           endAdornment: <InputChanges timer={timer} />,
         }}
       />
@@ -58,21 +63,21 @@ const Timer = () => {
   );
 };
 
-const InputChanges = ({ timer }: { timer: Replicants["LIVE"]["timer"] }) => (
-  <div className="flex gap-2 whitespace-nowrap">
-    {timer.on ? (
+const InputChanges = ({ timer }: { timer: Accessor<State["timer"]> }) => (
+  <div class="flex gap-2 whitespace-nowrap">
+    {timer().on ? (
       <>
         <Button
           variant="outlined"
           color="secondary"
-          onClick={() => nodecg.sendMessage("timer::value", timer.value + 30)}
+          onClick={() => client.act("setTimer", { value: timer().value + 30 })}
         >
           +0:30
         </Button>
         <Button
           variant="outlined"
           color="secondary"
-          onClick={() => nodecg.sendMessage("timer::value", timer.value + 60)}
+          onClick={() => client.act("setTimer", { value: timer().value + 60 })}
         >
           +1:00
         </Button>
@@ -80,7 +85,7 @@ const InputChanges = ({ timer }: { timer: Replicants["LIVE"]["timer"] }) => (
           variant="outlined"
           color="secondary"
           onClick={() =>
-            nodecg.sendMessage("timer::value", timer.value + 60 * 5)
+            client.act("setTimer", { value: timer().value + 60 * 5 })
           }
         >
           +5:00
@@ -91,21 +96,21 @@ const InputChanges = ({ timer }: { timer: Replicants["LIVE"]["timer"] }) => (
         <Button
           variant="outlined"
           color="secondary"
-          onClick={() => nodecg.sendMessage("timer::value", 60)}
+          onClick={() => client.act("setTimer", { value: 60 })}
         >
           1 min
         </Button>
         <Button
           variant="outlined"
           color="secondary"
-          onClick={() => nodecg.sendMessage("timer::value", 60 * 5)}
+          onClick={() => client.act("setTimer", { value: 60 * 5 })}
         >
           5 min
         </Button>
         <Button
           variant="outlined"
           color="secondary"
-          onClick={() => nodecg.sendMessage("timer::value", 60 * 10)}
+          onClick={() => client.act("setTimer", { value: 60 * 10 })}
         >
           10 min
         </Button>

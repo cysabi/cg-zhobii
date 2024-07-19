@@ -38,7 +38,42 @@ bento.box<State>({
     value: 0,
     on: false,
   },
+  setMatchTeams(set, payload) {
+    set((state) => {
+      if (payload.teamA) {
+        if (payload.teamA === -1) {
+          state.matches[payload.match].teamA = null;
+        } else {
+          state.matches[payload.match].teamA = payload.teamA;
+        }
+      }
+      if (payload.teamB) {
+        if (payload.teamB === -1) {
+          state.matches[payload.match].teamB = null;
+        } else {
+          state.matches[payload.match].teamB = payload.teamB;
+        }
+      }
+    });
+  },
+  setCurrentMatch(set, payload) {
+    set((state) => {
+      if (payload === -1) {
+        state.currentMatch = null;
+      } else {
+        state.currentMatch = payload;
+      }
+    });
+  },
   setTimer(set, payload) {
+    set((state) => {
+      if (payload.on !== undefined) {
+        state.timer.on = payload.on;
+      }
+      if (payload.value !== undefined) {
+        state.timer.value = payload.value;
+      }
+    });
     set((state) => {
       if (interval) {
         clearInterval(interval);
@@ -57,7 +92,6 @@ bento.box<State>({
           }
         }, 1000);
       }
-      state.timer = payload;
     });
   },
 });

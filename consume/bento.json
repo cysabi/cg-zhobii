@@ -1,9 +1,62 @@
 {
-  "teams": [],
+  "teams": [
+    {
+      "name": "FlyQuest RED",
+      "logo_url": "",
+      "rosters": [
+        {
+          "name": "FLY sonder",
+          "role": "d"
+        },
+        {
+          "name": "person 2",
+          "role": "i"
+        },
+        {
+          "name": "person 3",
+          "role": "s"
+        },
+        {
+          "name": "person 4",
+          "role": "c"
+        },
+        {
+          "name": "person 5",
+          "role": "f"
+        }
+      ]
+    },
+    {
+      "name": "Shopify Rebellion",
+      "logo_url": "",
+      "rosters": [
+        {
+          "name": "emzraline",
+          "role": "d"
+        },
+        {
+          "name": "person 2",
+          "role": "i"
+        },
+        {
+          "name": "person 3",
+          "role": "s"
+        },
+        {
+          "name": "person 4",
+          "role": "c"
+        },
+        {
+          "name": "person 5",
+          "role": "f"
+        }
+      ]
+    }
+  ],
   "matches": [
     {
-      "teamA": null,
-      "teamB": null,
+      "teamA": "Shopify Rebellion",
+      "teamB": "FlyQuest RED",
       "games": [
         {
           "map": null
@@ -44,8 +97,8 @@
       ]
     },
     {
-      "teamA": null,
-      "teamB": null,
+      "teamA": "FlyQuest RED",
+      "teamB": "Shopify Rebellion",
       "games": [
         {
           "map": null
@@ -86,9 +139,9 @@
       ]
     }
   ],
-  "currentMatch": null,
+  "currentMatch": 0,
   "timer": {
-    "value": 0,
-    "on": false
+    "on": false,
+    "value": 404
   }
 }

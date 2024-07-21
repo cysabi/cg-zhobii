@@ -5,10 +5,10 @@ import {
   ThemeProvider,
 } from "@suid/material";
 import colors from "tailwindcss/colors";
-import CurrentMatch from "./CurrentMatch";
-import Matches from "./Matches";
-import Timer from "./Timer";
-import Teams from "./Teams";
+import CurrentMatch from "./AppCurrentMatch";
+import Matches from "./AppMatches";
+import Timer from "./AppTimer";
+import Teams from "./AppTeams";
 
 const App = () => {
   return (

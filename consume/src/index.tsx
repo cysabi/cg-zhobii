@@ -11,6 +11,7 @@ import Maps from "./GraphicMaps";
 import Teams from "./GraphicTeams";
 import Bracket from "./GraphicBracket";
 import { ParentProps } from "solid-js";
+import MapsFlavor from "./GraphicMapsFlavor";
 
 const Graphic = (props: ParentProps) => (
   <div class="absolute inset-0 m-auto h-[1080px] w-[1920px] outline-red-500 outline-dashed outline-2 outline-offset-2">
@@ -36,6 +37,14 @@ render(
           component={() => (
             <Graphic>
               <Maps />
+            </Graphic>
+          )}
+        />
+        <Route
+          path="/maps-flavor"
+          component={() => (
+            <Graphic>
+              <MapsFlavor />
             </Graphic>
           )}
         />

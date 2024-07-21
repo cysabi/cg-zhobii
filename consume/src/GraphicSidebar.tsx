@@ -1,6 +1,6 @@
 import { createMemo, Index, Show } from "solid-js";
 import bento, { getSeries } from "./utils";
-import { encodeTime } from "./Timer";
+import { encodeTime } from "./AppTimer";
 
 const Sidebar = () => {
   const timer = createMemo(() => encodeTime(bento().timer.value));

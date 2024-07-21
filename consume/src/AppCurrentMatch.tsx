@@ -57,7 +57,11 @@ const CurrentMatch = () => {
       </div>
       <Show
         when={match() !== null}
-        fallback={<SetBracket bracket={bento().bracket} />}
+        fallback={
+          <div class="border-2 rounded-md p-5 border-slate-700 flex flex-col gap-3">
+            <SetBracket bracket={bento().bracket} />
+          </div>
+        }
       >
         <SetPickBans match={match()!} />
       </Show>
@@ -111,15 +115,21 @@ const SetBracket = (props: { bracket: State["bracket"] }) => {
                                 </MenuItem>
                                 <Index each={bento().teams}>
                                   {(team) => (
-                                    <MenuItem value={team().name}>
+                                    <MenuItem
+                                      value={team().name}
+                                      class="items-end"
+                                    >
                                       <div
                                         class={clsx(
+                                          "pt-[2px] flex items-end",
                                           winner() === t
                                             ? "text-indigo-300 font-extrabold tracking-wide"
                                             : "text-slate-300"
                                         )}
                                       >
-                                        {team().name}
+                                        <div class="text-sm truncate">
+                                          {team().name}
+                                        </div>
                                       </div>
                                     </MenuItem>
                                   )}
@@ -129,6 +139,7 @@ const SetBracket = (props: { bracket: State["bracket"] }) => {
                             <TextField
                               value={input() === null ? team()[1] : input()}
                               class="w-16 shrink-0"
+                              size="small"
                               variant="standard"
                               onChange={(e) => {
                                 setInput(

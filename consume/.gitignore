@@ -1,5 +1,5 @@
-art/*
-bento.db-lock
+*.exe
+*.zip
 bento.db
 
 # Logs

@@ -36,7 +36,7 @@ export const box = async <S extends Record<string, unknown>>(
   const app = createApp();
 
   // // set up vite dev server or vite static
-  if (true) {
+  if (false) {
     // const createViteServer = (await import("vite")).createServer;
     // const vite = await createViteServer({ server: { middlewareMode: true } });
     // app.use(fromNodeMiddleware(vite.middlewares));

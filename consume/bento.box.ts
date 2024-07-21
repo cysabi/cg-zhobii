@@ -1,146 +1,154 @@
 import bento from "bento";
 import type { State } from "./types";
+import consola from "consola";
 
 let interval: Timer | null = null;
 
-bento.box<State>({
-  teams: [],
-  matches: [
-    {
-      teamA: null,
-      teamB: null,
-      games: [
-        { map: null },
-        { map: null },
-        { map: null, swapSides: false, scoreline: [0, 0] },
-        { map: null, swapSides: false, scoreline: [0, 0] },
-        { map: null },
-        { map: null },
-        { map: null, swapSides: false, scoreline: [0, 0] },
-      ],
+bento
+  .box<State>({
+    teams: [],
+    matches: [
+      {
+        teamA: null,
+        teamB: null,
+        games: [
+          { map: null },
+          { map: null },
+          { map: null, swapSides: false, scoreline: [0, 0] },
+          { map: null, swapSides: false, scoreline: [0, 0] },
+          { map: null },
+          { map: null },
+          { map: null, swapSides: false, scoreline: [0, 0] },
+        ],
+      },
+      {
+        teamA: null,
+        teamB: null,
+        games: [
+          { map: null },
+          { map: null },
+          { map: null, swapSides: false, scoreline: [0, 0] },
+          { map: null, swapSides: false, scoreline: [0, 0] },
+          { map: null },
+          { map: null },
+          { map: null, swapSides: false, scoreline: [0, 0] },
+        ],
+      },
+    ],
+    currentMatch: null,
+    timer: {
+      value: 0,
+      on: false,
     },
-    {
-      teamA: null,
-      teamB: null,
-      games: [
-        { map: null },
-        { map: null },
-        { map: null, swapSides: false, scoreline: [0, 0] },
-        { map: null, swapSides: false, scoreline: [0, 0] },
-        { map: null },
-        { map: null },
-        { map: null, swapSides: false, scoreline: [0, 0] },
-      ],
-    },
-  ],
-  currentMatch: null,
-  timer: {
-    value: 0,
-    on: false,
-  },
-  setGame(set, payload) {
-    set((state) => {
-      if (payload.i === undefined) {
-        return console.error("setGame: `i` is undefined!");
-      }
-      if (state.currentMatch === null) {
-        return console.error("setGame: `currentMatch` is null!");
-      }
-      const game = state.matches[state.currentMatch].games[payload.i];
-      if (payload.map) {
-        game.map = payload.map === -1 ? null : payload.map;
-      }
-      if (payload.swap) {
-        if ("swapSides" in game) {
-          game.swapSides = !game.swapSides;
-        } else {
-          console.error("setGame: no property `swapSides`");
+    setGame(set, payload) {
+      set((state) => {
+        if (payload.i === undefined) {
+          return console.error("setGame: `i` is undefined!");
         }
-      }
-      if (payload.score0 !== undefined) {
-        let score = parseInt(payload.score0);
-        if (!("scoreline" in game)) {
-          console.error("setGame: no property `scoreline`");
-        } else if (isNaN(score)) {
-          console.error("setGame: invalid `score0`");
-        } else {
-          score = Math.min(Math.max(score, 0), 13);
-          if (score === 13 && game.scoreline[1] === 13) {
-            game.scoreline[1] = game.scoreline[0];
-          }
-          game.scoreline[0] = score;
+        if (state.currentMatch === null) {
+          return console.error("setGame: `currentMatch` is null!");
         }
-      }
-      if (payload.score1 !== undefined) {
-        let score = parseInt(payload.score1);
-        if (!("scoreline" in game)) {
-          console.error("setGame: no property `scoreline`");
-        } else if (isNaN(score)) {
-          console.error("setGame: invalid `score1`");
-        } else {
-          score = Math.min(Math.max(score, 0), 13);
-          if (score === 13 && game.scoreline[0] === 13) {
-            game.scoreline[0] = game.scoreline[1];
-          }
-          game.scoreline[1] = score;
+        const game = state.matches[state.currentMatch].games[payload.i];
+        if (payload.map) {
+          game.map = payload.map === -1 ? null : payload.map;
         }
-      }
-    });
-  },
-  setMatchTeams(set, payload) {
-    set((state) => {
-      if (payload.teamA) {
-        if (payload.teamA === -1) {
-          state.matches[payload.match].teamA = null;
-        } else {
-          state.matches[payload.match].teamA = payload.teamA;
-        }
-      }
-      if (payload.teamB) {
-        if (payload.teamB === -1) {
-          state.matches[payload.match].teamB = null;
-        } else {
-          state.matches[payload.match].teamB = payload.teamB;
-        }
-      }
-    });
-  },
-  setCurrentMatch(set, payload) {
-    set((state) => {
-      if (payload === -1) {
-        state.currentMatch = null;
-      } else {
-        state.currentMatch = payload;
-      }
-    });
-  },
-  setTimer(set, payload) {
-    set((state) => {
-      if (payload.on !== undefined) {
-        state.timer.on = payload.on;
-      }
-      if (payload.value !== undefined) {
-        state.timer.value = payload.value;
-      }
-    });
-    set((state) => {
-      if (interval) {
-        clearInterval(interval);
-      }
-      if (state.timer.on) {
-        interval = setInterval(() => {
-          if (state.timer.value <= 0) {
-            if (interval) clearInterval(interval);
-            set((state) => {
-              state.timer.value = 0;
-            });
+        if (payload.swap) {
+          if ("swapSides" in game) {
+            game.swapSides = !game.swapSides;
           } else {
-            set((state) => {
-              state.timer.value -= 1;
-            });
+            console.error("setGame: no property `swapSides`");
           }
-        }, 1000);
-      }
+        }
+        if (payload.score0 !== undefined) {
+          let score = parseInt(payload.score0);
+          if (!("scoreline" in game)) {
+            console.error("setGame: no property `scoreline`");
+          } else if (isNaN(score)) {
+            console.error("setGame: invalid `score0`");
+          } else {
+            score = Math.min(Math.max(score, 0), 13);
+            if (score === 13 && game.scoreline[1] === 13) {
+              game.scoreline[1] = game.scoreline[0];
+            }
+            game.scoreline[0] = score;
+          }
+        }
+        if (payload.score1 !== undefined) {
+          let score = parseInt(payload.score1);
+          if (!("scoreline" in game)) {
+            console.error("setGame: no property `scoreline`");
+          } else if (isNaN(score)) {
+            console.error("setGame: invalid `score1`");
+          } else {
+            score = Math.min(Math.max(score, 0), 13);
+            if (score === 13 && game.scoreline[0] === 13) {
+              game.scoreline[0] = game.scoreline[1];
+            }
+            game.scoreline[1] = score;
+          }
+        }
+      });
+    },
+    setMatchTeams(set, payload) {
+      set((state) => {
+        if (payload.teamA) {
+          if (payload.teamA === -1) {
+            state.matches[payload.match].teamA = null;
+          } else {
+            state.matches[payload.match].teamA = payload.teamA;
+          }
+        }
+        if (payload.teamB) {
+          if (payload.teamB === -1) {
+            state.matches[payload.match].teamB = null;
+          } else {
+            state.matches[payload.match].teamB = payload.teamB;
+          }
+        }
+      });
+    },
+    setCurrentMatch(set, payload) {
+      set((state) => {
+        if (payload === -1) {
+          state.currentMatch = null;
+        } else {
+          state.currentMatch = payload;
+        }
+      });
+    },
+    setTimer(set, payload) {
+      set((state) => {
+        if (payload.on !== undefined) {
+          state.timer.on = payload.on;
+        }
+        if (payload.value !== undefined) {
+          state.timer.value = payload.value;
+        }
+      });
+      set((state) => {
+        if (interval) {
+          clearInterval(interval);
+        }
+        if (state.timer.on) {
+          interval = setInterval(() => {
+            if (state.timer.value <= 0) {
+              if (interval) clearInterval(interval);
+              set((state) => {
+                state.timer.value = 0;
+              });
+            } else {
+              set((state) => {
+                state.timer.value -= 1;
+              });
+            }
+          }, 1000);
+        }
+      });
+    },
+  })
+  .then(() => {
+    consola.box(`Serving at http://localhost:4400`);
+    ["sidebar", "maps", "teams"].forEach((val) => {
+      consola.info(`Graphic: http://localhost:4400/#/${val}`);
     });
-  },
-});
+  });

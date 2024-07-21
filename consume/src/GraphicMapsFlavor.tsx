@@ -2,7 +2,6 @@ import {
   createEffect,
   createMemo,
   createSignal,
-  Index,
   onCleanup,
   Show,
 } from "solid-js";
@@ -54,7 +53,7 @@ const MapsFlavor = () => {
             "<"
           );
       } else {
-        gsap.timeline().to(refs, { opacity: 0, stagger: 0.05 });
+        gsap.timeline().to(refs, { opacity: 0, duration: 0.5 });
       }
     });
     onCleanup(() => ctx.kill());

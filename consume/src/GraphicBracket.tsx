@@ -24,7 +24,7 @@ const Bracket = () => {
       } else {
         gsap.timeline().to([".gsap-match", ".gsap-match-lines"], {
           opacity: 0,
-          stagger: 0.01,
+          duration: 0.5,
         });
       }
     });

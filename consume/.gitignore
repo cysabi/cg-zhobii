@@ -1,6 +1,6 @@
 *.exe
 *.zip
-bento.db
+bento.db*
 
 # Logs
 logs

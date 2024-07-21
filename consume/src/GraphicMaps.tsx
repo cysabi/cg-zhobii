@@ -44,7 +44,7 @@ const Maps = () => {
             }
           );
       } else {
-        gsap.timeline().to(refs, { opacity: 0, stagger: 0.1 });
+        gsap.timeline().to(refs, { opacity: 0, duration: 0.5 });
       }
     });
     onCleanup(() => ctx.kill());

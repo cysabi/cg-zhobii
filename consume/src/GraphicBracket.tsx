@@ -58,11 +58,11 @@ const Bracket = () => {
                   <div class="flex-1 flex items-center">
                     <Show when={i}>
                       <div class="gsap-match-lines mx-3.5 flex my-auto h-[calc(50%+4px)]">
-                        <div class="w-7 border-y-[4px] border-black">
+                        <div class="w-7 border-y-[4px] border-white">
                           dsfadsf
                         </div>
-                        <div class="h-full border-l-[4px] border-black" />
-                        <div class="w-7 border-t-[4px] border-black my-auto" />
+                        <div class="h-full border-l-[4px] border-white" />
+                        <div class="w-7 border-t-[4px] border-white my-auto" />
                       </div>
                     </Show>
                     <div class="gsap-match flex flex-col gap-0.5">

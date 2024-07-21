@@ -171,7 +171,7 @@ const Map = (props: {
               "absolute inset-0",
               pick() === undefined
                 ? "bg-yellow/25 z-10 mix-blend-overlay"
-                : "bg-black/25"
+                : "bg-black/25 -z-10"
             )}
           />
           <div

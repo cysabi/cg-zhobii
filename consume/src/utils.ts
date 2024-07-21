@@ -19,37 +19,37 @@ export const getSeries = (match: Match) => {
 
 export const maps: Record<string, { img: string }> = {
   bind: {
-    img: "https://static.wikia.nocookie.net/valorant/images/2/23/Loading_Screen_Bind.png",
+    img: "/Loading_Screen_Bind.webp",
   },
   haven: {
-    img: "https://static.wikia.nocookie.net/valorant/images/7/70/Loading_Screen_Haven.png",
+    img: "/Loading_Screen_Haven.webp",
   },
   split: {
-    img: "https://static.wikia.nocookie.net/valorant/images/d/d6/Loading_Screen_Split.png",
+    img: "/Loading_Screen_Split.webp",
   },
   ascent: {
-    img: "https://static.wikia.nocookie.net/valorant/images/e/e7/Loading_Screen_Ascent.png",
+    img: "/Loading_Screen_Ascent.webp",
   },
   icebox: {
-    img: "https://static.wikia.nocookie.net/valorant/images/1/13/Loading_Screen_Icebox.png",
+    img: "/Loading_Screen_Icebox.webp",
   },
   breeze: {
-    img: "https://static.wikia.nocookie.net/valorant/images/1/10/Loading_Screen_Breeze.png",
+    img: "/Loading_Screen_Breeze.webp",
   },
   fracture: {
-    img: "https://static.wikia.nocookie.net/valorant/images/f/fc/Loading_Screen_Fracture.png",
+    img: "/Loading_Screen_Fracture.webp",
   },
   pearl: {
-    img: "https://static.wikia.nocookie.net/valorant/images/a/af/Loading_Screen_Pearl.png",
+    img: "/Loading_Screen_Pearl.webp",
   },
   lotus: {
-    img: "https://static.wikia.nocookie.net/valorant/images/d/d0/Loading_Screen_Lotus.png",
+    img: "/Loading_Screen_Lotus.webp",
   },
   sunset: {
-    img: "https://static.wikia.nocookie.net/valorant/images/5/5c/Loading_Screen_Sunset.png",
+    img: "/Loading_Screen_Sunset.webp",
   },
   abyss: {
-    img: "https://static.wikia.nocookie.net/valorant/images/6/61/Loading_Screen_Abyss.png",
+    img: "/Loading_Screen_Abyss.webp",
   },
 };
 

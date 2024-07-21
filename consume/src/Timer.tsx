@@ -134,9 +134,9 @@ const decodeTime = (time: string) => {
   return total;
 };
 
-const encodeTime = (time: number | null) => {
+export const encodeTime = (time: number | null) => {
   if (time === null) {
-    return "00";
+    return "00:00:00";
   }
 
   const hrs = Math.floor(time / 3600);
@@ -149,11 +149,7 @@ const encodeTime = (time: number | null) => {
     sec.toString().padStart(2, "0"),
   ];
 
-  if (hrs > 0) {
-    return chunks.join(":");
-  } else {
-    return chunks.slice(1).join(":");
-  }
+  return chunks.join(":");
 };
 
 export default Timer;

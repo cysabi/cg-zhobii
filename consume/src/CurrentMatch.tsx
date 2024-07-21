@@ -7,7 +7,7 @@ import {
   Select,
   TextField,
 } from "@suid/material";
-import bento, { client, getSeries } from "./utils";
+import bento, { client, getSeries, maps } from "./utils";
 import { Match } from "../types";
 
 const CurrentMatch = () => {
@@ -133,7 +133,7 @@ const SetPickBans = (props: { match: Match }) => {
                         class="absolute inset-0 bg-center bg-cover opacity-25"
                         style={{
                           "background-image": `url('${
-                            maps[game().map as keyof typeof maps]?.img
+                            maps[game().map!]?.img
                           }')`,
                         }}
                       ></div>
@@ -149,9 +149,7 @@ const SetPickBans = (props: { match: Match }) => {
                         <MenuItem value={-1}>
                           <div class="text-slate-500 italic">empty</div>
                         </MenuItem>
-                        <Index
-                          each={Object.keys(maps) as (keyof typeof maps)[]}
-                        >
+                        <Index each={Object.keys(maps)}>
                           {(map) => (
                             <MenuItem value={map()}>
                               <div class="capitalize">{map()}</div>
@@ -290,41 +288,5 @@ const ScoreButtons = (props: {
     </div>
   );
 };
-
-const maps = {
-  bind: {
-    img: "https://static.wikia.nocookie.net/valorant/images/2/23/Loading_Screen_Bind.png",
-  },
-  haven: {
-    img: "https://static.wikia.nocookie.net/valorant/images/7/70/Loading_Screen_Haven.png",
-  },
-  split: {
-    img: "https://static.wikia.nocookie.net/valorant/images/d/d6/Loading_Screen_Split.png",
-  },
-  ascent: {
-    img: "https://static.wikia.nocookie.net/valorant/images/e/e7/Loading_Screen_Ascent.png",
-  },
-  icebox: {
-    img: "https://static.wikia.nocookie.net/valorant/images/1/13/Loading_Screen_Icebox.png",
-  },
-  breeze: {
-    img: "https://static.wikia.nocookie.net/valorant/images/1/10/Loading_Screen_Breeze.png",
-  },
-  fracture: {
-    img: "https://static.wikia.nocookie.net/valorant/images/f/fc/Loading_Screen_Fracture.png",
-  },
-  pearl: {
-    img: "https://static.wikia.nocookie.net/valorant/images/a/af/Loading_Screen_Pearl.png",
-  },
-  lotus: {
-    img: "https://static.wikia.nocookie.net/valorant/images/d/d0/Loading_Screen_Lotus.png",
-  },
-  sunset: {
-    img: "https://static.wikia.nocookie.net/valorant/images/5/5c/Loading_Screen_Sunset.png",
-  },
-  abyss: {
-    img: "https://static.wikia.nocookie.net/valorant/images/6/61/Loading_Screen_Abyss.png",
-  },
-} as const;
 
 export default CurrentMatch;

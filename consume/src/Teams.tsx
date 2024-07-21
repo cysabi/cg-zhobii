@@ -2,10 +2,6 @@ import { createMemo, createSignal, For, Show } from "solid-js";
 import { fileUploader, UploadFile } from "@solid-primitives/upload";
 import { Button } from "@suid/material";
 import bento, { client } from "./utils";
-import cImg from "./static/role-c.webp";
-import dImg from "./static/role-d.webp";
-import iImg from "./static/role-i.webp";
-import sImg from "./static/role-s.webp";
 
 const Teams = () => {
   const teams = createMemo(() => bento().teams);
@@ -32,10 +28,10 @@ const Teams = () => {
                             class="h-full w-full opacity-75"
                             src={
                               {
-                                c: cImg,
-                                d: dImg,
-                                i: iImg,
-                                s: sImg,
+                                c: "/role-c.webp",
+                                d: "/role-d.webp",
+                                i: "/role-i.webp",
+                                s: "/role-s.webp",
                                 f: "",
                               }[player.role]
                             }

@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "One Little Font";
+  src: url("/One\ Little\ Font\ Regular.otf");
+  font-weight: normal;
+  font-style: normal;
+}

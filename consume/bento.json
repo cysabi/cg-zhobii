@@ -2,7 +2,7 @@
   "teams": [
     {
       "name": "FlyQuest RED",
-      "logo_url": "",
+      "logo_url": "https://owcdn.net/img/6478e8607ca46.png",
       "rosters": [
         {
           "name": "sonder",
@@ -28,7 +28,7 @@
     },
     {
       "name": "Shopify Rebellion",
-      "logo_url": "",
+      "logo_url": "https://owcdn.net/img/62ba0611a4912.png",
       "rosters": [
         {
           "name": "florescent",
@@ -59,16 +59,16 @@
       "teamB": "FlyQuest RED",
       "games": [
         {
-          "map": "haven"
+          "map": "bind"
         },
         {
-          "map": "haven"
+          "map": "breeze"
         },
         {
-          "map": null,
+          "map": "split",
           "swapSides": false,
           "scoreline": [
-            4,
+            0,
             13
           ]
         },
@@ -81,13 +81,13 @@
           ]
         },
         {
-          "map": "fracture"
+          "map": "breeze"
         },
         {
-          "map": "pearl"
+          "map": "lotus"
         },
         {
-          "map": "abyss",
+          "map": "bind",
           "swapSides": true,
           "scoreline": [
             0,
@@ -111,7 +111,7 @@
           "swapSides": true,
           "scoreline": [
             12,
-            13
+            0
           ]
         },
         {
@@ -141,7 +141,7 @@
   ],
   "currentMatch": 0,
   "timer": {
-    "on": true,
-    "value": 0
+    "on": false,
+    "value": 3093
   }
 }

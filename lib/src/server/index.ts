@@ -20,7 +20,10 @@ export class Server<S extends Record<string, unknown>> {
   wss: Handler;
 
   constructor(config: ServerConfig<S>) {
-    this.#state = new LowSync<S>(new JSONFileSync("bento.json"), config.state);
+    this.#state = new LowSync<S>(
+      new JSONFileSync("bento.db.json"),
+      config.state
+    );
     this.#state.read();
     this.#state.write();
     this.#actions = config.actions;

@@ -139,7 +139,7 @@
       ]
     }
   ],
-  "currentMatch": null,
+  "currentMatch": 0,
   "timer": {
     "on": false,
     "value": 3093

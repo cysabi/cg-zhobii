@@ -17,9 +17,7 @@ const App = () => {
         <main class="min-h-screen text-slate-50 bg-slate-900 font-[K2D]">
           <div class="flex gap-10 p-10">
             <div class="flex-1 flex">
-              <Section title="Current Match">
-                <CurrentMatch />
-              </Section>
+              <CurrentMatch />
             </div>
             <div class="flex-1 flex flex-col gap-10">
               <Section title="Matches">

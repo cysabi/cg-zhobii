@@ -14,10 +14,13 @@ import gsap from "gsap";
 const Maps = () => {
   const match = createMemo(() => bento().matches[bento().currentMatch!]);
   const games = createMemo(() => match()?.games || []);
+  const teams = createMemo(() => {
+    return [
+      bento().teams.find((team) => team.name === match().teamA)!,
+      bento().teams.find((team) => team.name === match().teamB)!,
+    ];
+  });
 
-  let refs: HTMLDivElement[][] = [[], []];
-
-  const [play, setPlay] = createSignal(false as false | number);
   createEffect(() => {
     let ctx = gsap.context(() => {
       if (play()) {
@@ -47,6 +50,8 @@ const Maps = () => {
     onCleanup(() => ctx.kill());
   });
 
+  let refs: HTMLDivElement[][] = [[], []];
+  const [play, setPlay] = createSignal(false as false | number);
   document.addEventListener("keypress", (e) => {
     if (e.key === "1") {
       setPlay(Date.now());
@@ -58,29 +63,32 @@ const Maps = () => {
   return (
     <div class="h-full w-full flex items-center p-[42px] gap-[42px] font-['One_Little_Font']">
       <Index each={games()}>
-        {(game, i) => <Map refs={refs} i={i} match={match()} game={game()} />}
+        {(game, i) => (
+          <Map
+            refs={refs}
+            i={i}
+            teams={teams()}
+            match={match()}
+            game={game()}
+          />
+        )}
       </Index>
     </div>
   );
 };
 
 const Map = (props: {
+  teams: State["teams"];
   refs: HTMLDivElement[][];
   i: number;
   match: State["matches"][number];
   game: State["matches"][number]["games"][number];
 }) => {
-  const teams = createMemo(() => {
-    return [
-      bento().teams.find((team) => team.name === props.match.teamA),
-      bento().teams.find((team) => team.name === props.match.teamB),
-    ];
-  });
   const team = createMemo(() => {
     if (props.i === 6) {
       return null;
     }
-    return teams()[props.i % 2];
+    return props.teams[props.i % 2];
   });
   const map = createMemo(() => ({
     name: props.game.map,
@@ -91,8 +99,8 @@ const Map = (props: {
       return;
     }
     return {
-      atk: props.game.swapSides ? teams()[1] : teams()[0],
-      def: props.game.swapSides ? teams()[0] : teams()[1],
+      atk: props.game.swapSides ? props.teams[1] : props.teams[0],
+      def: props.game.swapSides ? props.teams[0] : props.teams[1],
       scoreline: props.game.scoreline,
     };
   });
@@ -160,8 +168,10 @@ const Map = (props: {
           </div>
           <div
             class={clsx(
-              "absolute inset-0 z-10",
-              pick() === undefined && "mix-blend-overlay bg-yellow/25"
+              "absolute inset-0",
+              pick() === undefined
+                ? "bg-yellow/25 z-10 mix-blend-overlay"
+                : "bg-black/25"
             )}
           />
           <div
@@ -179,7 +189,7 @@ const Map = (props: {
               src={team()?.logo_url}
               class={clsx(
                 "h-full w-full",
-                pick() === undefined ? "grayscale brightness-0 invert" : ""
+                pick() === undefined && "grayscale brightness-0 invert"
               )}
             />
           </Show>

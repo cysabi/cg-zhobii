@@ -8,7 +8,7 @@ import App from "./App";
 import bento from "./utils";
 import Sidebar from "./GraphicSidebar";
 import Maps from "./GraphicMaps";
-import MapsFlavor from "./GraphicMapsFlavor";
+import Teams from "./GraphicTeams";
 
 render(
   () => (
@@ -36,11 +36,11 @@ render(
           )}
         />
         <Route
-          path="/maps-flavor"
+          path="/teams"
           component={() => (
             <div class="absolute inset-0 m-auto h-[1080px] w-[1920px] outline-red-500 outline-dashed outline-2 outline-offset-2 font-rubik text-white text-xl">
               <div class="relative h-full w-full">
-                <MapsFlavor />
+                <Teams />
               </div>
             </div>
           )}

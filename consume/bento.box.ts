@@ -40,6 +40,24 @@ bento
       value: 0,
       on: false,
     },
+    // prettier-ignore
+    bracket: [
+      [ [[null, 0], [null, 0]],
+        [[null, 0], [null, 0]],
+        [[null, 0], [null, 0]],
+        [[null, 0], [null, 0]],
+        [[null, 0], [null, 0]],
+        [[null, 0], [null, 0]],
+        [[null, 0], [null, 0]],
+        [[null, 0], [null, 0]] ],
+      [ [[null, 0], [null, 0]],
+        [[null, 0], [null, 0]],
+        [[null, 0], [null, 0]],
+        [[null, 0], [null, 0]] ],
+      [ [[null, 0], [null, 0]],
+        [[null, 0], [null, 0]] ],
+      [ [[null, 0], [null, 0]] ],
+    ],
     setGame(set, payload) {
       set((state) => {
         if (payload.i === undefined) {
@@ -142,6 +160,34 @@ bento
               });
             }
           }, 1000);
+        }
+      });
+    },
+    setBracket(
+      set,
+      payload: [
+        number,
+        number,
+        number,
+        { team?: string | -1; score?: number | "+" | "-" }
+      ]
+    ) {
+      set((state) => {
+        const match = state.bracket[payload[0]][payload[1]][payload[2]];
+        const data = payload[3];
+        if (typeof data.score === "number") {
+          match[1] = data.score;
+        } else if (data.score === "+") {
+          match[1] += 1;
+        } else if (data.score === "-") {
+          match[1] -= 1;
+        }
+        if (data.team) {
+          if (data.team === -1) {
+            match[0] = null;
+          } else {
+            match[0] = data.team;
+          }
         }
       });
     },

@@ -9,40 +9,50 @@ import bento from "./utils";
 import Sidebar from "./GraphicSidebar";
 import Maps from "./GraphicMaps";
 import Teams from "./GraphicTeams";
+import Bracket from "./GraphicBracket";
+import { ParentProps } from "solid-js";
+
+const Graphic = (props: ParentProps) => (
+  <div class="absolute inset-0 m-auto h-[1080px] w-[1920px] outline-red-500 outline-dashed outline-2 outline-offset-2">
+    <div class="relative h-full w-full">{props.children}</div>
+  </div>
+);
 
 render(
   () => (
     <Show when={bento() !== undefined}>
       <HashRouter>
-        <Route path="/" component={() => <App />} />
+        <Route path="/" component={App} />
         <Route
           path="/sidebar"
           component={() => (
-            <div class="absolute inset-0 m-auto h-[1080px] w-[1920px] outline-red-500 outline-dashed outline-2 outline-offset-2 font-rubik text-white text-xl">
-              <div class="relative h-full w-full">
-                <Sidebar />
-              </div>
-            </div>
+            <Graphic>
+              <Sidebar />
+            </Graphic>
           )}
         />
         <Route
           path="/maps"
           component={() => (
-            <div class="absolute inset-0 m-auto h-[1080px] w-[1920px] outline-red-500 outline-dashed outline-2 outline-offset-2 font-rubik text-white text-xl">
-              <div class="relative h-full w-full">
-                <Maps />
-              </div>
-            </div>
+            <Graphic>
+              <Maps />
+            </Graphic>
           )}
         />
         <Route
           path="/teams"
           component={() => (
-            <div class="absolute inset-0 m-auto h-[1080px] w-[1920px] outline-red-500 outline-dashed outline-2 outline-offset-2 font-rubik text-white text-xl">
-              <div class="relative h-full w-full">
-                <Teams />
-              </div>
-            </div>
+            <Graphic>
+              <Teams />
+            </Graphic>
+          )}
+        />
+        <Route
+          path="/bracket"
+          component={() => (
+            <Graphic>
+              <Bracket />
+            </Graphic>
           )}
         />
       </HashRouter>

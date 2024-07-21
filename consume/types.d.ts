@@ -28,4 +28,5 @@ export type State = {
     value: number;
     on: boolean;
   };
+  bracket: [[string | null, number], [string | null, number]][][];
 };

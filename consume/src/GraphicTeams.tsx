@@ -68,82 +68,80 @@ const Teams = () => {
   });
 
   return (
-    <div class="h-full w-full font-['One_Little_Font']">
-      <div class="flex items-center justify-between text-yellow text-7xl">
-        <Index each={teams()}>
-          {(team, i) => (
-            <>
-              <Show when={i}>
-                <span class="flex mb-auto gap-3.5 p-7 bg-black/50">
-                  <span class="w-[1ch] flex flex-col items-center">
-                    {getSeries(match())[0]}
-                  </span>
-                  <span class="w-[1ch] flex flex-col items-center">-</span>
-                  <span class="w-[1ch] flex flex-col items-center">
-                    {getSeries(match())[1]}
-                  </span>
+    <div class="h-full w-full font-['One_Little_Font'] flex text-yellow text-7xl">
+      <Index each={teams()}>
+        {(team, i) => (
+          <>
+            <Show when={i}>
+              <span class="flex mb-auto gap-3.5 p-7 bg-black/50">
+                <span class="w-[1ch] flex flex-col items-center">
+                  {getSeries(match())[0]}
                 </span>
-              </Show>
-              <div class="flex-1 flex flex-col">
+                <span class="w-[1ch] flex flex-col items-center">-</span>
+                <span class="w-[1ch] flex flex-col items-center">
+                  {getSeries(match())[1]}
+                </span>
+              </span>
+            </Show>
+            <div class="flex-1 flex flex-col">
+              <div
+                class={clsx(
+                  "flex items-center gap-7 p-7 bg-black/50",
+                  i && "flex-row-reverse"
+                )}
+              >
+                <div class="h-14 w-14">
+                  <img src={team()?.logo_url} class="h-full w-full" />
+                </div>
+                <div>{team()?.name}</div>
+              </div>
+              <div class="h-full overflow-clip">
                 <div
+                  ref={refs[i][0]}
                   class={clsx(
-                    "flex items-center gap-7 p-7 bg-black/50",
-                    i && "flex-row-reverse"
+                    "-z-10 flex flex-col m-14 gap-14 p-14 bg-yellow/50 relative text-6xl text-white",
+                    i ? "origin-top-right" : "origin-top-left"
                   )}
                 >
-                  <div class="h-14 w-14">
-                    <img src={team()?.logo_url} class="h-full w-full" />
-                  </div>
-                  <div>{team()?.name}</div>
-                </div>
-                <div class="h-full overflow-clip">
                   <div
-                    ref={refs[i][0]}
                     class={clsx(
-                      "-z-10 flex flex-col m-14 gap-14 p-14 bg-yellow/50 relative text-6xl text-white",
-                      i ? "origin-top-right" : "origin-top-left"
+                      "absolute inset-0 -z-20 border-4 -translate-y-2 border-dashed border-yellow/50",
+                      i ? "-translate-x-2" : "translate-x-2"
                     )}
-                  >
-                    <div
-                      class={clsx(
-                        "absolute inset-0 -z-20 border-4 -translate-y-2 border-dashed border-yellow/50",
-                        i ? "-translate-x-2" : "translate-x-2"
-                      )}
-                    />
-                    <Index each={team()?.rosters || []}>
-                      {(player, p) => (
-                        <div
-                          ref={refs[i][p + 1]}
-                          class={clsx(
-                            "flex gap-7 items-center",
-                            i && "flex-row-reverse text-right"
-                          )}
-                        >
-                          <div class="h-14 w-14">
-                            <img
-                              class="h-full w-full"
-                              src={
-                                {
-                                  c: "/role-c.webp",
-                                  d: "/role-d.webp",
-                                  i: "/role-i.webp",
-                                  s: "/role-s.webp",
-                                  f: "/role-f.webp",
-                                }[player().role]
-                              }
-                            />
-                          </div>
-                          <div class="flex-1">{player().name}</div>
+                  />
+                  <Index each={team()?.rosters || []}>
+                    {(player, p) => (
+                      <div
+                        ref={refs[i][p + 1]}
+                        class={clsx(
+                          "flex gap-7 items-center",
+                          i && "flex-row-reverse text-right"
+                        )}
+                      >
+                        <div class="h-14 w-14">
+                          <img
+                            class="h-full w-full"
+                            src={
+                              {
+                                c: "/role-c.webp",
+                                d: "/role-d.webp",
+                                i: "/role-i.webp",
+                                s: "/role-s.webp",
+                                f: "/role-f.webp",
+                              }[player().role]
+                            }
+                          />
                         </div>
-                      )}
-                    </Index>
-                  </div>
+                        <div class="flex-1">{player().name}</div>
+                      </div>
+                    )}
+                  </Index>
                 </div>
               </div>
-            </>
-          )}
-        </Index>
-      </div>
+            </div>
+          </>
+        )}
+      </Index>
     </div>
   );
 };

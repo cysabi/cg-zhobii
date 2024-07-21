@@ -61,7 +61,7 @@ const MapsFlavor = () => {
   });
 
   return (
-    <div class="h-full w-full flex items-center p-[42px] gap-[42px] font-['One_Little_Font']">
+    <div class="h-full w-full flex items-center p-[42px] gap-[42px] font-['One_Little_Font'] text-white">
       <Index each={games()}>
         {(game, i) => (
           <Map

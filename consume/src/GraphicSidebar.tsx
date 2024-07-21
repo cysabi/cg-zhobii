@@ -6,9 +6,9 @@ const Sidebar = () => {
   const timer = createMemo(() => encodeTime(bento().timer.value));
 
   return (
-    <div class="h-full w-full max-w-2xl ml-auto flex flex-col p-8 gap-8 font-['One_Little_Font']">
+    <div class="h-full w-full max-w-2xl ml-auto flex flex-col p-8 gap-8 font-['One_Little_Font'] text-white">
       <div class="relative py-8 bg-yellow/75 flex items-center justify-center text-8xl font-medium">
-        <div class="absolute inset-0 m-[3px] border-[3px] border-dashed border-yellow/50"></div>
+        <div class="z-10 absolute inset-0 border-[4px] translate-x-1.5 -translate-y-1.5 border-dashed border-yellow/50"></div>
         <Index each={timer().split("")}>
           {(digit) => (
             <span class="w-[1ch] flex flex-col items-center">{digit()}</span>
@@ -16,7 +16,7 @@ const Sidebar = () => {
         </Index>
       </div>
       <div class="relative flex-1 p-8 gap-8 bg-black/50 flex flex-col justify-evenly">
-        <div class="absolute inset-0 m-[3px] border-[3px] border-dashed border-black/25"></div>
+        <div class="z-10 absolute inset-0 border-[4px] translate-x-1.5 -translate-y-1.5 border-dashed border-black/25"></div>
         <Index each={bento().matches}>
           {(match, i) => {
             const series = createMemo(() => {
@@ -29,9 +29,9 @@ const Sidebar = () => {
 
             return (
               <>
-                <Show when={i}>
+                {/* <Show when={i}>
                   <div class="border-t-4 border-dashed border-yellow" />
-                </Show>
+                </Show> */}
                 <div class="flex items-center justify-between">
                   <TeamBox team={match().teamA} />
                   <div class="w-32 flex flex-col items-center">

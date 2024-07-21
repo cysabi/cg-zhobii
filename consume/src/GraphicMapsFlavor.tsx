@@ -27,30 +27,40 @@ const MapsFlavor = () => {
         gsap
           .timeline()
           .fromTo(
-            refs[0],
-            { opacity: 0, y: 72 },
-            { ease: "expo.out", opacity: 1, y: 0, duration: 1, stagger: 0.1 }
+            refs.map((r) => r[0]),
+            { opacity: 0, y: 320 },
+            { ease: "expo.out", opacity: 1, y: 0, duration: 2, stagger: 0.1 }
           )
           .fromTo(
-            refs[1],
-            { opacity: 0, scale: 1.5, rotate: 360 * 1.5 },
+            refs.map((r) => r.slice(1)),
+            { y: 320 },
             {
-              ease: "back.out(1)",
+              ease: "expo.out",
+              y: 0,
+              duration: 1,
+              stagger: 0.1 / 3,
+            },
+            "<+0.5"
+          )
+          .fromTo(
+            refs.map((r) => r.slice(1)),
+            { opacity: 0 },
+            {
+              ease: "expo.out",
               opacity: 1,
-              scale: 1,
-              rotate: 0,
-              duration: 1.5,
-              stagger: 1,
-            }
+              duration: 2,
+              stagger: 0.1 / 3,
+            },
+            "<"
           );
       } else {
-        gsap.timeline().to(refs, { opacity: 0, stagger: 0.1 });
+        gsap.timeline().to(refs, { opacity: 0, stagger: 0.05 });
       }
     });
     onCleanup(() => ctx.kill());
   });
 
-  let refs: HTMLDivElement[][] = [[], []];
+  let refs: HTMLDivElement[][] = [[], [], [], [], [], [], []];
   const [play, setPlay] = createSignal(false as false | number);
   document.addEventListener("keypress", (e) => {
     if (e.key === "1") {
@@ -61,148 +71,141 @@ const MapsFlavor = () => {
   });
 
   return (
-    <div class="h-full w-full flex items-center p-[42px] gap-[42px] font-['One_Little_Font'] text-white">
-      <Index each={games()}>
-        {(game, i) => (
-          <Map
-            refs={refs}
-            i={i}
-            teams={teams()}
-            match={match()}
-            game={game()}
-          />
-        )}
-      </Index>
+    <div class="h-full w-full flex items-center justify-center">
+      <div class="grid grid-rows-2 grid-cols-5 font-['One_Little_Font'] text-white">
+        <div class="col-start-1 h-80 w-80">
+          <Game refs={refs[0]} i={0} teams={teams()} game={games()[0]} />
+        </div>
+        <div class="col-start-2 h-80 w-80">
+          <Game refs={refs[1]} i={1} teams={teams()} game={games()[1]} />
+        </div>
+        <div class="row-span-2 w-80">
+          <Game refs={refs[2]} i={2} teams={teams()} game={games()[2]} />
+        </div>
+        <div class="row-span-2 w-80">
+          <Game refs={refs[3]} i={3} teams={teams()} game={games()[3]} />
+        </div>
+        <div class="col-start-1 h-80 w-80">
+          <Game refs={refs[4]} i={4} teams={teams()} game={games()[4]} />
+        </div>
+        <div class="col-start-2 h-80 w-80">
+          <Game refs={refs[5]} i={5} teams={teams()} game={games()[5]} />
+        </div>
+        <div class="row-start-1 col-start-5 row-span-2 w-80">
+          <Game refs={refs[6]} i={6} teams={teams()} game={games()[6]} />
+        </div>
+      </div>
     </div>
   );
 };
 
-const Map = (props: {
-  teams: State["teams"];
-  refs: HTMLDivElement[][];
+const Game = (props: {
+  refs: HTMLDivElement[];
   i: number;
-  match: State["matches"][number];
+  teams: State["teams"];
   game: State["matches"][number]["games"][number];
 }) => {
-  const team = createMemo(() => {
-    if (props.i === 6) {
+  const mapImg = createMemo(() => maps[props.game.map!]?.img);
+  const ban = createMemo(() => {
+    if ("scoreline" in props.game) {
       return null;
     }
-    return props.teams[props.i % 2];
+    return props.i % 2 ? props.teams[1] : props.teams[0];
   });
-  const map = createMemo(() => ({
-    name: props.game.map,
-    img: maps[props.game.map!]?.img,
-  }));
+
   const pick = createMemo(() => {
     if (!("scoreline" in props.game)) {
-      return;
+      return null;
     }
+    const done = props.game.scoreline.findIndex((score) => score === 13);
     return {
+      done: done === -1 ? null : (done as 0 | 1),
+      scoreline: props.game.scoreline,
       atk: props.game.swapSides ? props.teams[1] : props.teams[0],
       def: props.game.swapSides ? props.teams[0] : props.teams[1],
-      scoreline: props.game.scoreline,
+      team:
+        props.i === 6
+          ? "decider"
+          : props.i % 2
+          ? `${props.teams[1].name} pick`
+          : `${props.teams[0].name} pick`,
     };
   });
 
   return (
-    <div
-      ref={props.refs[0][props.i]}
-      class={clsx(
-        "opacity-0 h-[640px] flex-1 relative py-7 flex items-center justify-center font-medium",
-        pick() === undefined ? "bg-black/50" : "bg-yellow/50"
-      )}
-    >
-      <div class="absolute inset-0">
-        <div
-          class={clsx("relative h-[460px] -translate-y-3.5 translate-x-3.5")}
-        >
-          <div ref={props.refs[1][props.i]} class="opacity-0 absolute inset-0">
-            <Show when={map().img}>
-              <img
-                class={clsx(
-                  "h-full w-full object-cover object-center",
-                  pick() === undefined && "brightness-50 grayscale"
-                )}
-                height={1080}
-                width={1920}
-                src={map().img}
-              />
-              <div class="absolute inset-0 text-4xl flex flex-col justify-start text-center">
-                <div
-                  class={clsx(
-                    "mt-7 py-3.5",
-                    pick() === undefined
-                      ? "bg-yellow/50 line-through opacity-75"
-                      : "bg-black/50"
-                  )}
-                >
-                  {map().name}
+    <div class="h-full w-full relative text-4xl overflow-clip">
+      <div ref={props.refs[0]} class="absolute inset-0 bg-black/75" />
+      <div ref={props.refs[1]} class="absolute inset-0">
+        <img
+          class={clsx("h-full w-full object-cover", {
+            "brightness-[33%] grayscale-[67%]": ban(),
+          })}
+          src={mapImg()}
+        />
+      </div>
+      <Show
+        when={ban()}
+        fallback={
+          <>
+            <div
+              ref={props.refs[2]}
+              class={clsx(
+                "absolute inset-0 flex flex-col gap-7 pb-10 items-center justify-center",
+                pick()?.done !== null && "bg-neutral-900/75"
+              )}
+            >
+              <Show when={pick()?.done !== null}>
+                <div class="h-16 w-16">
+                  <img
+                    src={props.teams[pick()?.done!].logo_url}
+                    class="h-full w-full object-center"
+                  />
                 </div>
-              </div>
-              <Show when={pick()}>
-                <div class="absolute inset-0 text-4xl flex flex-col justify-end text-center">
-                  <div class="bg-gradient-to-t from-yellow/50 to-transparent flex pb-1">
-                    <div class="flex-1 flex flex-col gap-1 items-center">
-                      <div class="h-7 w-7">
-                        <img
-                          src={pick()?.atk?.logo_url}
-                          class="h-full w-full"
-                        />
-                      </div>
-                      <div>ATK</div>
-                    </div>
-                    <div class="flex-1 flex flex-col gap-1 items-center">
-                      <div class="h-7 w-7">
-                        <img
-                          src={pick()?.def?.logo_url}
-                          class="h-full w-full"
-                        />
-                      </div>
-                      <div>DEF</div>
-                    </div>
-                  </div>
+                <div class="text-5xl">
+                  {pick()?.scoreline[0]}-{pick()?.scoreline[1]}
                 </div>
               </Show>
-            </Show>
-          </div>
-          <div
-            class={clsx(
-              "absolute inset-0",
-              pick() === undefined
-                ? "bg-yellow/25 z-10 mix-blend-overlay"
-                : "bg-black/25 -z-10"
-            )}
-          />
-          <div
-            class={clsx(
-              "absolute inset-0 z-10 border-4 border-dashed",
-              pick() === undefined ? "border-yellow/50" : "border-black/50"
-            )}
-          />
-        </div>
-      </div>
-      <div class="absolute inset-0 flex flex-col gap-3.5 mt-auto w-full items-center justify-center h-[calc(640px-460px+14px)]">
-        <div class="h-14 w-14">
-          <Show when={props.i !== 6}>
-            <img
-              src={team()?.logo_url}
-              class={clsx(
-                "h-full w-full",
-                pick() === undefined && "grayscale brightness-0 invert"
-              )}
-            />
-          </Show>
-        </div>
-        <Show
-          when={pick()}
-          fallback={<div class="text-5xl text-red-500 uppercase">ban</div>}
+            </div>
+            <div
+              ref={props.refs[3]}
+              class="absolute inset-0 flex flex-col justify-end"
+            >
+              <div class="h-40 from-black/50 via-black/35 to-transparent bg-gradient-to-t flex flex-col justify-end leading-none uppercase">
+                <div class="text-xl px-2 py-1">
+                  <Show when={pick()?.done === null}>
+                    <div class="my-3.5">
+                      <div class="leading-none uppercase flex">
+                        <div class="w-11">atk:</div>
+                        <div>{pick()?.atk.name}</div>
+                      </div>
+                    </div>
+                  </Show>
+                  <div class="leading-none uppercase flex justify-between">
+                    <div>{props.game.map}</div>
+                  </div>
+                  <div class="text-2xl leading-none uppercase">
+                    {pick()?.team}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </>
+        }
+      >
+        <div
+          ref={props.refs[2]}
+          class="absolute inset-0 flex flex-col items-center justify-center"
         >
-          <div class="text-5xl uppercase">
-            {props.i === 6 ? "decider" : "pick"}
-          </div>
-        </Show>
-      </div>
+          <div class="text-red-500 text-8xl flex items-center">x</div>
+        </div>
+        <div
+          ref={props.refs[3]}
+          class="absolute inset-0 bg-gradient-to-t from-red-500/90 via-transparent to-transparent flex flex-col justify-end px-2 py-1 uppercase text-xl"
+        >
+          <div class="text-xl leading-none uppercase">{props.game.map}</div>
+          <div class="text-2xl leading-none uppercase">{ban()?.name} ban</div>
+        </div>
+      </Show>
     </div>
   );
 };

@@ -109,7 +109,7 @@ const Map = (props: {
     <div
       ref={props.refs[0][props.i]}
       class={clsx(
-        "opacity-0 h-[640px] flex-1 relative py-7 flex items-center justify-center font-medium",
+        "h-[640px] flex-1 relative py-7 flex items-center justify-center font-medium",
         pick() === undefined ? "bg-black/50" : "bg-yellow/50"
       )}
     >
@@ -117,15 +117,16 @@ const Map = (props: {
         <div
           class={clsx("relative h-[460px] -translate-y-3.5 translate-x-3.5")}
         >
-          <div ref={props.refs[1][props.i]} class="opacity-0 absolute inset-0">
+          <div
+            ref={props.refs[1][props.i]}
+            class="absolute inset-0 overflow-clip"
+          >
             <Show when={map().img}>
               <img
                 class={clsx(
-                  "h-full w-full object-cover object-center",
+                  "h-full w-full object-cover",
                   pick() === undefined && "brightness-50 grayscale"
                 )}
-                height={1080}
-                width={1920}
                 src={map().img}
               />
               <div class="absolute inset-0 text-4xl flex flex-col justify-start text-center">

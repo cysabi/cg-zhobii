@@ -15,7 +15,14 @@ const App = () => {
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
         <main class="min-h-screen text-slate-50 bg-slate-900 font-[K2D]">
-          <Show when={bento() !== undefined}>
+          <Show
+            when={bento() !== undefined}
+            fallback={
+              <div class="p-1 text-slate-700">
+                loading... shouldn't take longer than a couple seconds!
+              </div>
+            }
+          >
             <div class="flex gap-10 p-10">
               <div class="flex-1 flex">
                 <CurrentMatch />

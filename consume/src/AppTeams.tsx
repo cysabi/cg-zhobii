@@ -13,51 +13,65 @@ const Teams = () => {
   >();
 
   createEffect((prev) => {
-    if (prev !== bento().teams && files().length) {
+    if (prev !== teams() && files().length) {
       fullReload();
     }
-    return bento().teams;
+    return teams();
   });
 
   return (
     <>
-      <div class="border-2 p-3 rounded-md border-slate-700 flex flex-col gap-3">
-        <For each={teams()}>
-          {(team) => (
-            <div class="flex gap-3 items-center">
-              <div class="h-10 w-10 shrink-0">
-                <img class="h-full w-full object-contain" src={team.logo_url} />
-              </div>
-              <div class="flex-1 flex flex-col">
-                <div>{team.name}</div>
-                <div class="flex flex-wrap justify-between">
-                  <For each={team.rosters}>
-                    {(player) => (
-                      <div class="flex flex-1 shrink-0 gap-1 items-center">
-                        <div class="h-3 w-3">
-                          <img
-                            class="h-full w-full opacity-75"
-                            src={
-                              {
-                                c: "/role-c.webp",
-                                d: "/role-d.webp",
-                                i: "/role-i.webp",
-                                s: "/role-s.webp",
-                                f: "",
-                              }[player.role]
-                            }
-                          />
+      <Show
+        when={teams().length}
+        fallback={
+          <div class="p-3 rounded-md bg-slate-700/50 flex flex-col gap-3 italic text-slate-400">
+            no teams uploaded yet!
+          </div>
+        }
+      >
+        <div class="border-2 p-3 rounded-md border-slate-700 flex flex-col gap-3">
+          <For each={teams()}>
+            {(team) => (
+              <div class="flex gap-3 items-center">
+                <div class="h-10 w-10 shrink-0">
+                  <img
+                    class="h-full w-full object-contain"
+                    src={team.logo_url}
+                  />
+                </div>
+                <div class="flex-1 flex flex-col">
+                  <div>{team.name}</div>
+                  <div class="flex flex-wrap justify-between">
+                    <For each={team.rosters}>
+                      {(player) => (
+                        <div class="flex flex-1 shrink-0 gap-1 items-center">
+                          <div class="h-3 w-3">
+                            <img
+                              class="h-full w-full opacity-75"
+                              src={
+                                {
+                                  c: "/role-c.webp",
+                                  d: "/role-d.webp",
+                                  i: "/role-i.webp",
+                                  s: "/role-s.webp",
+                                  f: "",
+                                }[player.role]
+                              }
+                            />
+                          </div>
+                          <div class="text-sm text-slate-400">
+                            {player.name}
+                          </div>
                         </div>
-                        <div class="text-sm text-slate-400">{player.name}</div>
-                      </div>
-                    )}
-                  </For>
+                      )}
+                    </For>
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
-        </For>
-      </div>
+            )}
+          </For>
+        </div>
+      </Show>
       <div class="border-2 p-3 rounded-md border-slate-700 flex flex-col gap-3">
         <div class="flex gap-3 items-center">
           <input

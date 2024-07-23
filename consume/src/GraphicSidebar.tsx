@@ -18,7 +18,7 @@ const Sidebar = () => {
       <div class="relative flex-1 p-8 gap-8 bg-black/50 flex flex-col justify-evenly">
         <div class="z-10 absolute inset-0 border-[4px] translate-x-1.5 -translate-y-1.5 border-dashed border-black/25"></div>
         <Index each={bento().matches}>
-          {(match, i) => {
+          {(match) => {
             const series = createMemo(() => {
               let series = getSeries(match());
               if (series[0] === 0 && series[1] === 0) {

@@ -212,7 +212,7 @@ const SetBracket = (props: { bracket: State["bracket"] }) => (
                     return (
                       <div class="flex items-end gap-2">
                         <FormControl
-                          class="overflow-clip rounded-t"
+                          class="overflow-clip rounded-t min-w-16"
                           fullWidth
                           variant="standard"
                           size="small"

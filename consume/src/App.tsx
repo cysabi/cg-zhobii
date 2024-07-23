@@ -1,4 +1,4 @@
-import type { ParentProps } from "solid-js";
+import { Show, type ParentProps } from "solid-js";
 import {
   createTheme,
   StyledEngineProvider,
@@ -9,28 +9,30 @@ import CurrentMatch from "./AppCurrentMatch";
 import Matches from "./AppMatches";
 import Timer from "./AppTimer";
 import Teams from "./AppTeams";
-
+import bento from "./utils";
 const App = () => {
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
         <main class="min-h-screen text-slate-50 bg-slate-900 font-[K2D]">
-          <div class="flex gap-10 p-10">
-            <div class="flex-1 flex">
-              <CurrentMatch />
+          <Show when={bento() !== undefined}>
+            <div class="flex gap-10 p-10">
+              <div class="flex-1 flex">
+                <CurrentMatch />
+              </div>
+              <div class="flex-1 flex flex-col gap-10">
+                <Section title="Matches">
+                  <Matches />
+                </Section>
+                <Section title="Timer">
+                  <Timer />
+                </Section>
+                <Section title="Teams">
+                  <Teams />
+                </Section>
+              </div>
             </div>
-            <div class="flex-1 flex flex-col gap-10">
-              <Section title="Matches">
-                <Matches />
-              </Section>
-              <Section title="Timer">
-                <Timer />
-              </Section>
-              <Section title="Teams">
-                <Teams />
-              </Section>
-            </div>
-          </div>
+          </Show>
         </main>
       </ThemeProvider>
     </StyledEngineProvider>

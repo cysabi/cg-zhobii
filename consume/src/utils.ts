@@ -5,6 +5,16 @@ import type { Match, State } from "../types";
 const [bento, dispatch] = createSignal<State>();
 export const client = new Client<State>(dispatch);
 
+export const fullReload = () => {
+  setTimeout(() => {
+    const data = bento();
+    dispatch(undefined);
+    setTimeout(() => {
+      dispatch(data);
+    }, 0);
+  }, 0);
+};
+
 export const getSeries = (match: Match) => {
   let series = [0, 0];
   [match.games[2], match.games[3], match.games[6]].forEach((game) => {

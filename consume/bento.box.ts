@@ -191,6 +191,11 @@ bento
         }
       });
     },
+    setTeams(set, payload) {
+      set((state) => {
+        state.teams = payload;
+      });
+    },
   })
   .then(() => {
     consola.box(`Serving at http://localhost:4400`);

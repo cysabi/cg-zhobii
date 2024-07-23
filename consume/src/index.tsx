@@ -21,51 +21,59 @@ const Graphic = (props: ParentProps) => (
 
 render(
   () => (
-    <Show when={bento() !== undefined}>
-      <HashRouter>
-        <Route path="/" component={App} />
-        <Route
-          path="/sidebar"
-          component={() => (
+    <HashRouter>
+      <Route path="/" component={App} />
+      <Route
+        path="/sidebar"
+        component={() => (
+          <Show when={bento() !== undefined}>
             <Graphic>
               <Sidebar />
             </Graphic>
-          )}
-        />
-        <Route
-          path="/maps"
-          component={() => (
+          </Show>
+        )}
+      />
+      <Route
+        path="/maps"
+        component={() => (
+          <Show when={bento() !== undefined}>
             <Graphic>
               <Maps />
             </Graphic>
-          )}
-        />
-        <Route
-          path="/maps-flavor"
-          component={() => (
+          </Show>
+        )}
+      />
+      <Route
+        path="/maps-flavor"
+        component={() => (
+          <Show when={bento() !== undefined}>
             <Graphic>
               <MapsFlavor />
             </Graphic>
-          )}
-        />
-        <Route
-          path="/teams"
-          component={() => (
+          </Show>
+        )}
+      />
+      <Route
+        path="/teams"
+        component={() => (
+          <Show when={bento() !== undefined}>
             <Graphic>
               <Teams />
             </Graphic>
-          )}
-        />
-        <Route
-          path="/bracket"
-          component={() => (
+          </Show>
+        )}
+      />
+      <Route
+        path="/bracket"
+        component={() => (
+          <Show when={bento() !== undefined}>
             <Graphic>
               <Bracket />
             </Graphic>
-          )}
-        />
-      </HashRouter>
-    </Show>
+          </Show>
+        )}
+      />
+    </HashRouter>
   ),
   document.getElementById("root")!
 );

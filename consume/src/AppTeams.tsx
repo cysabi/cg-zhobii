@@ -122,13 +122,11 @@ const Teams = () => {
 
                       csv.data.forEach((row, i) => {
                         if (i === 0) {
-                          (
-                            Object.keys(headers) as (keyof typeof headers)[]
-                          ).forEach((header) => {
-                            headers[header] = row.findIndex(
-                              (v) => v === header
-                            );
-                          });
+                          (row as (keyof typeof headers)[]).forEach(
+                            (header, i) => {
+                              headers[header] = i;
+                            }
+                          );
                         } else {
                           if (row[headers["Team Name"]].length) {
                             team.flushTeam();

@@ -11,21 +11,23 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "bento": "../lib/",
+    "consola": "^3.2.3"
+  },
+  "devDependencies": {
     "@solid-primitives/upload": "^0.0.117",
     "@solidjs/router": "^0.13.6",
     "@suid/material": "^0.16.0",
     "@suid/types": "^0.6.0",
     "@suid/vite-plugin": "^0.2.0",
-    "bento": "../lib/",
+    "@types/papaparse": "^5.3.14",
+    "autoprefixer": "^10.4.19",
     "clsx": "^2.1.1",
     "confbox": "^0.1.7",
-    "consola": "^3.2.3",
     "gsap": "^3.12.5",
+    "papaparse": "^5.4.1",
     "solid-js": "^1.8.17",
-    "spring-easing": "^2.3.3"
-  },
-  "devDependencies": {
-    "autoprefixer": "^10.4.19",
+    "spring-easing": "^2.3.3",
     "postcss": "^8.4.39",
     "tailwindcss": "^3.4.6",
     "typescript": "^5.5.3",

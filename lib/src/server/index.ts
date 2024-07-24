@@ -12,6 +12,7 @@ import { pack, unpack } from "msgpackr";
 import { LowSync } from "lowdb";
 import { JSONFileSync } from "lowdb/node";
 import consola from "consola";
+import { colorize } from "consola/utils";
 
 export class Server<S extends Record<string, unknown>> {
   #state;
@@ -33,7 +34,7 @@ export class Server<S extends Record<string, unknown>> {
       message: (ws, msg) => {
         const data: Message = unpack(msg.rawData);
 
-        consola.log(`ws ~ message ~ ${JSON.stringify(data)}`);
+        consola.log(colorize("dim", `ws ~ message ~ ${JSON.stringify(data)}`));
 
         switch (data.type) {
           case "init":
@@ -43,10 +44,10 @@ export class Server<S extends Record<string, unknown>> {
         }
       },
       open: (ws) => {
-        consola.log("ws ~ open");
+        consola.log(colorize("dim", "ws ~ open"));
       },
       close: (ws) => {
-        consola.log("ws ~ close");
+        consola.log(colorize("dim", "ws ~ close"));
         this.#clients.delete(ws);
       },
     };

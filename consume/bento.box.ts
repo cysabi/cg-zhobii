@@ -1,6 +1,7 @@
 import bento from "bento";
 import type { State } from "./types";
 import consola from "consola";
+import { colorize } from "consola/utils";
 
 let interval: Timer | null = null;
 
@@ -199,8 +200,10 @@ bento
       "agent-select",
       "bracket",
     ].forEach((val) => {
-      consola.info(
-        `Browser Source [1920x1080] :: http://localhost:4400/#/${val}`
+      consola.log(
+        colorize("whiteBright", "Browser Source [1920x1080]") +
+          colorize("blue", " :: ") +
+          colorize("underline", `http://localhost:4400/#/${val}`)
       );
     });
   });

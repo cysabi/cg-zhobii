@@ -8,7 +8,8 @@ import App from "./App";
 import bento from "./utils";
 import Sidebar from "./GraphicSidebar";
 import Maps from "./GraphicMaps";
-import Teams from "./GraphicTeams";
+import AgentSelect from "./GraphicAgentSelect";
+import Rosters from "./GraphicRosters";
 import Bracket from "./GraphicBracket";
 import { ParentProps } from "solid-js";
 import MapsFlavor from "./GraphicMapsFlavor";
@@ -54,11 +55,21 @@ render(
         )}
       />
       <Route
-        path="/teams"
+        path="/rosters"
         component={() => (
           <Show when={bento() !== undefined}>
             <Graphic>
-              <Teams />
+              <Rosters />
+            </Graphic>
+          </Show>
+        )}
+      />
+      <Route
+        path="/agent-select"
+        component={() => (
+          <Show when={bento() !== undefined}>
+            <Graphic>
+              <AgentSelect />
             </Graphic>
           </Show>
         )}

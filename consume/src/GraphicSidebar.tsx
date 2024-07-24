@@ -28,27 +28,22 @@ const Sidebar = () => {
             });
 
             return (
-              <>
-                {/* <Show when={i}>
-                  <div class="border-t-4 border-dashed border-yellow" />
-                </Show> */}
-                <div class="flex items-center justify-between">
-                  <TeamBox team={match().teamA} />
-                  <div class="w-32 flex flex-col items-center">
-                    <Show
-                      when={series() !== null}
-                      fallback={
-                        <div class="font-bold text-7xl tracking-wider">VS</div>
-                      }
-                    >
-                      <div class="font-bold text-7xl tracking-wider">
-                        {series()![0]}-{series()![1]}
-                      </div>
-                    </Show>
-                  </div>
-                  <TeamBox team={match().teamB} />
+              <div class="flex items-center justify-between">
+                <TeamBox team={match().teamA} />
+                <div class="w-32 flex flex-col items-center">
+                  <Show
+                    when={series() !== null}
+                    fallback={
+                      <div class="font-bold text-7xl tracking-wider">VS</div>
+                    }
+                  >
+                    <div class="font-bold text-7xl tracking-wider">
+                      {series()![0]}-{series()![1]}
+                    </div>
+                  </Show>
                 </div>
-              </>
+                <TeamBox team={match().teamB} />
+              </div>
             );
           }}
         </Index>

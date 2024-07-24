@@ -4,18 +4,21 @@ import {
   createSignal,
   Index,
   onCleanup,
-  Show,
 } from "solid-js";
-import bento, { getSeries } from "./utils";
+import bento from "./utils";
 import clsx from "clsx";
 import gsap from "gsap";
 
 const Teams = () => {
-  const match = createMemo(() => bento().matches[bento().currentMatch!]);
+  const match = createMemo(() =>
+    bento().currentMatch !== null
+      ? bento().matches[bento().currentMatch!]
+      : null
+  );
   const teams = createMemo(() => {
     return [
-      bento().teams.find((team) => team.name === match().teamA),
-      bento().teams.find((team) => team.name === match().teamB),
+      bento().teams.find((team) => team.name === match()?.teamA),
+      bento().teams.find((team) => team.name === match()?.teamB),
     ];
   });
 
@@ -72,17 +75,6 @@ const Teams = () => {
       <Index each={teams()}>
         {(team, i) => (
           <>
-            <Show when={i}>
-              <span class="flex mb-auto gap-3.5 p-7 bg-black/50">
-                <span class="w-[1ch] flex flex-col items-center">
-                  {getSeries(match())[0]}
-                </span>
-                <span class="w-[1ch] flex flex-col items-center">-</span>
-                <span class="w-[1ch] flex flex-col items-center">
-                  {getSeries(match())[1]}
-                </span>
-              </span>
-            </Show>
             <div class="flex-1 flex flex-col">
               <div
                 class={clsx(

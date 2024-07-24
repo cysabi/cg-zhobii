@@ -11,12 +11,16 @@ import clsx from "clsx";
 import gsap from "gsap";
 
 const MapsFlavor = () => {
-  const match = createMemo(() => bento().matches[bento().currentMatch!]);
+  const match = createMemo(() =>
+    bento().currentMatch !== null
+      ? bento().matches[bento().currentMatch!]
+      : null
+  );
   const games = createMemo(() => match()?.games || []);
   const teams = createMemo(() => {
     return [
-      bento().teams.find((team) => team.name === match().teamA)!,
-      bento().teams.find((team) => team.name === match().teamB)!,
+      bento().teams.find((team) => team.name === match()?.teamA)!,
+      bento().teams.find((team) => team.name === match()?.teamB)!,
     ];
   });
 

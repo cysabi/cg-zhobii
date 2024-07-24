@@ -12,12 +12,16 @@ import clsx from "clsx";
 import gsap from "gsap";
 
 const Maps = () => {
-  const match = createMemo(() => bento().matches[bento().currentMatch!]);
+  const match = createMemo(() =>
+    bento().currentMatch !== null
+      ? bento().matches[bento().currentMatch!]
+      : null
+  );
   const games = createMemo(() => match()?.games || []);
   const teams = createMemo(() => {
     return [
-      bento().teams.find((team) => team.name === match().teamA)!,
-      bento().teams.find((team) => team.name === match().teamB)!,
+      bento().teams.find((team) => team.name === match()?.teamA)!,
+      bento().teams.find((team) => team.name === match()?.teamB)!,
     ];
   });
 
@@ -81,7 +85,7 @@ const Map = (props: {
   teams: State["teams"];
   refs: HTMLDivElement[][];
   i: number;
-  match: State["matches"][number];
+  match: State["matches"][number] | null;
   game: State["matches"][number]["games"][number];
 }) => {
   const team = createMemo(() => {
@@ -186,13 +190,7 @@ const Map = (props: {
       <div class="absolute inset-0 flex flex-col gap-3.5 mt-auto w-full items-center justify-center h-[calc(640px-460px+14px)]">
         <div class="h-14 w-14">
           <Show when={props.i !== 6}>
-            <img
-              src={team()?.logo_url}
-              class={clsx(
-                "h-full w-full",
-                pick() === undefined && "grayscale brightness-0 invert"
-              )}
-            />
+            <img src={team()?.logo_url} class="h-full w-full" />
           </Show>
         </div>
         <Show

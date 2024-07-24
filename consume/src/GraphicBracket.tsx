@@ -58,9 +58,7 @@ const Bracket = () => {
                   <div class="flex-1 flex items-center">
                     <Show when={i}>
                       <div class="gsap-match-lines mx-3.5 flex my-auto h-[calc(50%+4px)]">
-                        <div class="w-7 border-y-[4px] border-white">
-                          dsfadsf
-                        </div>
+                        <div class="w-7 border-y-[4px] border-white" />
                         <div class="h-full border-l-[4px] border-white" />
                         <div class="w-7 border-t-[4px] border-white my-auto" />
                       </div>
@@ -75,7 +73,7 @@ const Bracket = () => {
                             <div
                               class={clsx(
                                 "flex",
-                                t === winner() ? "bg-black/50" : "bg-yellow"
+                                t === winner() ? "bg-yellow" : "bg-black/50"
                               )}
                             >
                               <div class="flex items-center py-1 px-2 gap-2 w-80">

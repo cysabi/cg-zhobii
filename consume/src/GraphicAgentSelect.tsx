@@ -1,0 +1,54 @@
+import { createMemo, Index, Show } from "solid-js";
+import bento, { getSeries } from "./utils";
+import clsx from "clsx";
+
+const Teams = () => {
+  const match = createMemo(() =>
+    bento().currentMatch !== null
+      ? bento().matches[bento().currentMatch!]
+      : null
+  );
+  const teams = createMemo(() => {
+    return [
+      bento().teams.find((team) => team.name === match()?.teamA),
+      bento().teams.find((team) => team.name === match()?.teamB),
+    ];
+  });
+
+  return (
+    <div class="h-full w-full font-['One_Little_Font'] flex text-yellow text-7xl">
+      <Index each={teams()}>
+        {(team, i) => (
+          <>
+            <Show when={i}>
+              <span class="flex mb-auto gap-3.5 p-7 bg-black/50">
+                <span class="w-[1ch] flex flex-col items-center">
+                  {getSeries(match())[0]}
+                </span>
+                <span class="w-[1ch] flex flex-col items-center">-</span>
+                <span class="w-[1ch] flex flex-col items-center">
+                  {getSeries(match())[1]}
+                </span>
+              </span>
+            </Show>
+            <div class="flex-1 flex flex-col">
+              <div
+                class={clsx(
+                  "flex items-center gap-7 p-7 bg-black/50",
+                  i && "flex-row-reverse"
+                )}
+              >
+                <div class="h-14 w-14">
+                  <img src={team()?.logo_url} class="h-full w-full" />
+                </div>
+                <div>{team()?.name}</div>
+              </div>
+            </div>
+          </>
+        )}
+      </Index>
+    </div>
+  );
+};
+
+export default Teams;

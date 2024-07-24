@@ -15,14 +15,31 @@ export const fullReload = () => {
   }, 0);
 };
 
-export const getSeries = (match: Match) => {
+export const findWinner = (scoreline: [number, number]) => {
+  const winner = [scoreline, scoreline.toReversed()].findIndex((scoreline) => {
+    if (scoreline[0] === 13 && scoreline[1] < 13) {
+      return true;
+    }
+    if (scoreline[0] > 13 && scoreline[0] - scoreline[1] >= 2) {
+      return true;
+    }
+  });
+  if (winner > -1) {
+    return winner;
+  }
+  return null;
+};
+
+export const getSeries = (match: Match | null) => {
   let series = [0, 0];
+  if (match === null) {
+    return series;
+  }
   [match.games[2], match.games[3], match.games[6]].forEach((game) => {
-    game.scoreline.forEach((score, i) => {
-      if (score === 13) {
-        series[i] += 1;
-      }
-    });
+    const winner = findWinner(game.scoreline);
+    if (typeof winner === "number") {
+      series[winner] += 1;
+    }
   });
   return series;
 };

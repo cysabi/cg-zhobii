@@ -84,11 +84,7 @@ bento
           } else if (isNaN(score)) {
             console.error("setGame: invalid `score0`");
           } else {
-            score = Math.min(Math.max(score, 0), 13);
-            if (score === 13 && game.scoreline[1] === 13) {
-              game.scoreline[1] = game.scoreline[0];
-            }
-            game.scoreline[0] = score;
+            game.scoreline[0] = Math.max(score, 0);
           }
         }
         if (payload.score1 !== undefined) {
@@ -98,11 +94,7 @@ bento
           } else if (isNaN(score)) {
             console.error("setGame: invalid `score1`");
           } else {
-            score = Math.min(Math.max(score, 0), 13);
-            if (score === 13 && game.scoreline[0] === 13) {
-              game.scoreline[0] = game.scoreline[1];
-            }
-            game.scoreline[1] = score;
+            game.scoreline[1] = Math.max(score, 0);
           }
         }
       });
@@ -199,7 +191,16 @@ bento
   })
   .then(() => {
     consola.box(`Serving at http://localhost:4400`);
-    ["sidebar", "maps", "teams"].forEach((val) => {
-      consola.info(`Graphic: http://localhost:4400/#/${val}`);
+    [
+      "sidebar",
+      "maps",
+      "maps-flavor",
+      "rosters",
+      "agent-select",
+      "bracket",
+    ].forEach((val) => {
+      consola.info(
+        `Browser Source [1920x1080] :: http://localhost:4400/#/${val}`
+      );
     });
   });

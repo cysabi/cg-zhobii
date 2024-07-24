@@ -135,6 +135,8 @@ const Game = (props: {
     };
   });
 
+  const scoreline = createMemo(() => pick()?.scoreline.sort((b, a) => a - b));
+
   return (
     <div class="h-full w-full relative text-4xl overflow-clip">
       <div ref={props.refs[0]} class="absolute inset-0 bg-black/75" />
@@ -165,7 +167,7 @@ const Game = (props: {
                   />
                 </div>
                 <div class="text-5xl">
-                  {pick()?.scoreline[0]}-{pick()?.scoreline[1]}
+                  {scoreline()?.[0]}-{scoreline()?.[1]}
                 </div>
               </Show>
             </div>

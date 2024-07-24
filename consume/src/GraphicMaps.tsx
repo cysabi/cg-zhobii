@@ -105,7 +105,6 @@ const Map = (props: {
     return {
       atk: props.game.swapSides ? props.teams[1] : props.teams[0],
       def: props.game.swapSides ? props.teams[0] : props.teams[1],
-      scoreline: props.game.scoreline,
     };
   });
 

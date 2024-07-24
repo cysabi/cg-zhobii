@@ -28,6 +28,7 @@ const Teams = () => {
         refs.forEach((refs) => {
           gsap
             .timeline()
+            .to(".gsap-rosters-head", { opacity: 1 })
             .fromTo(
               refs[0],
               { opacity: 0, y: -256, scale: 0.67, height: 0 },
@@ -38,23 +39,27 @@ const Teams = () => {
                 scale: 1,
                 height: "auto",
                 duration: 1,
-              }
+              },
+              "<"
             )
             .fromTo(
-              refs.slice(1),
+              [refs.slice(1)],
               { opacity: 0, y: -256 / 4 },
               { ease: "expo.out", opacity: 1, y: 0, duration: 1, stagger: 0.1 },
               "<+0.5"
             );
         });
       } else {
-        gsap.timeline().to([refs[0][0], refs[1][0]], {
-          opacity: 0,
-          y: -256,
-          scale: 0.3,
-          height: 0,
-          ease: "back.in(1)",
-        });
+        gsap
+          .timeline()
+          .to([refs[0][0], refs[1][0]], {
+            opacity: 0,
+            y: -256,
+            scale: 0.3,
+            height: 0,
+            ease: "back.in(1)",
+          })
+          .to(".gsap-rosters-head", { opacity: 0, ease: "expo.in" }, "<");
       }
     });
     onCleanup(() => ctx.kill());
@@ -71,14 +76,14 @@ const Teams = () => {
   });
 
   return (
-    <div class="h-full w-full font-['One_Little_Font'] flex text-yellow text-7xl">
+    <div class="h-full w-full font-['One_Little_Font'] flex items-center text-yellow text-7xl">
       <Index each={teams()}>
         {(team, i) => (
           <>
-            <div class="flex-1 flex flex-col">
+            <div class="flex-1 flex flex-col m-7 p-7">
               <div
                 class={clsx(
-                  "flex items-center gap-7 p-7 bg-black/50",
+                  "gsap-rosters-head flex items-center gap-7 p-7 bg-black/50",
                   i && "flex-row-reverse"
                 )}
               >
@@ -87,7 +92,7 @@ const Teams = () => {
                 </div>
                 <div>{team()?.name}</div>
               </div>
-              <div class="h-full overflow-clip">
+              <div class="overflow-clip max-w-[848px] max-h-[748px]">
                 <div
                   ref={refs[i][0]}
                   class={clsx(
@@ -110,7 +115,7 @@ const Teams = () => {
                           i && "flex-row-reverse text-right"
                         )}
                       >
-                        <div class="h-14 w-14">
+                        <div class="h-14 w-14 shrink-0">
                           <img
                             class="h-full w-full"
                             src={
@@ -124,7 +129,7 @@ const Teams = () => {
                             }
                           />
                         </div>
-                        <div class="flex-1">{player().name}</div>
+                        <div class="flex-1 truncate">{player().name}</div>
                       </div>
                     )}
                   </Index>

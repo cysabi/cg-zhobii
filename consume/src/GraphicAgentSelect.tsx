@@ -21,12 +21,16 @@ const Teams = () => {
         {(team, i) => (
           <>
             <Show when={i}>
-              <span class="flex mb-auto gap-3.5 p-7 bg-black/50">
-                <span class="w-[1ch] flex flex-col items-center">
+              <span class="flex mb-auto">
+                <span class="flex flex-col p-7 items-center bg-black/50">
                   {getSeries(match())[0]}
                 </span>
-                <span class="w-[1ch] flex flex-col items-center">-</span>
-                <span class="w-[1ch] flex flex-col items-center">
+                <div class="flex flex-col">
+                  <div class="bg-black/50 flex-1"></div>
+                  <div class="w-[108px] h-[82px] shrink-0 flex flex-col items-center"></div>
+                  <div class="bg-black/50 flex-1"></div>
+                </div>
+                <span class="flex flex-col p-7 items-center bg-black/50">
                   {getSeries(match())[1]}
                 </span>
               </span>

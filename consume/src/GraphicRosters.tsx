@@ -66,7 +66,7 @@ const Teams = () => {
   });
 
   let refs: HTMLDivElement[][] = [[], []];
-  const [play, setPlay] = createSignal(true as false | number);
+  const [play, setPlay] = createSignal(false as false | number);
   document.addEventListener("keypress", (e) => {
     if (e.key === "1") {
       setPlay(Date.now());

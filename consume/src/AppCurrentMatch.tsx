@@ -128,7 +128,7 @@ const SetPickBans = (props: { match: Match }) => {
                       <div class="bg-indigo-500/25 text-sm flex gap-1.5 rounded-md px-2.5 py-0.5 uppercase">
                         <span class="text-indigo-400">WIN:</span>
                         <span class="text-indigo-200 tracking-wide font-bold">
-                          {winner()}
+                          {[props.match.teamA, props.match.teamB][winner()!]}
                         </span>
                       </div>
                     </Show>

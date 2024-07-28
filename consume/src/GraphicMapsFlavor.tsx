@@ -128,14 +128,14 @@ const Game = (props: {
 }) => {
   const mapImg = createMemo(() => maps[props.game?.map!]?.img);
   const ban = createMemo(() => {
-    if (!props?.game || !("scoreline" in props?.game)) {
+    if ("scoreline" in props?.game) {
       return null;
     }
-    return props.i % 2 ? props.teams[1] : props.teams[0];
+    return props.i % 2 ? props.teams?.[1] : props.teams?.[0];
   });
 
   const pick = createMemo(() => {
-    if (!props?.game || !("scoreline" in props?.game)) {
+    if (props?.game === null || !("scoreline" in props?.game)) {
       return null;
     }
     return {

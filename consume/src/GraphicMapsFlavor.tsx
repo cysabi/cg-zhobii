@@ -32,21 +32,39 @@ const MapsFlavor = () => {
           .fromTo(
             refs.map((r) => r[0]),
             { opacity: 0, y: 320 },
-            { ease: "expo.out", opacity: 1, y: 0, duration: 2, stagger: 0.1 }
+            {
+              ease: "expo.out",
+              opacity: 1,
+              y: 0,
+              duration: 2,
+              stagger: 0.1,
+            }
           )
           .fromTo(
-            refs.map((r) => r.slice(1)),
+            refs.map((r) => r[1]),
+            { opacity: 0, y: 320 },
+            {
+              ease: "expo.out",
+              opacity: 1,
+              y: 0,
+              duration: 2,
+              stagger: 0.1,
+            },
+            "<+0.2"
+          )
+          .fromTo(
+            refs.map((r) => r.slice(2)),
             { y: 320 },
             {
               ease: "expo.out",
               y: 0,
-              duration: 1,
+              duration: 1.5,
               stagger: 0.1 / 3,
             },
-            "<+0.5"
+            "<+0.2"
           )
           .fromTo(
-            refs.map((r) => r.slice(1)),
+            refs.map((r) => r.slice(2)),
             { opacity: 0 },
             {
               ease: "expo.out",
@@ -139,7 +157,8 @@ const Game = (props: {
   return (
     <div class="h-full w-full relative text-4xl overflow-clip">
       <div ref={props.refs[0]} class="absolute inset-0 bg-black/75" />
-      <div ref={props.refs[1]} class="absolute inset-0">
+      <div ref={props.refs[1]} class="absolute inset-0 bg-yellow/75" />
+      <div ref={props.refs[2]} class="absolute inset-0">
         <img
           class={clsx("h-full w-full object-cover", {
             "brightness-[33%] grayscale-[67%]": ban(),
@@ -152,7 +171,7 @@ const Game = (props: {
         fallback={
           <>
             <div
-              ref={props.refs[2]}
+              ref={props.refs[3]}
               class={clsx(
                 "absolute inset-0 flex flex-col gap-7 pb-10 items-center justify-center",
                 pick()?.done !== null && "bg-neutral-900/75"
@@ -171,7 +190,7 @@ const Game = (props: {
               </Show>
             </div>
             <div
-              ref={props.refs[3]}
+              ref={props.refs[4]}
               class="absolute inset-0 flex flex-col justify-end"
             >
               <div class="h-40 from-black/50 via-black/35 to-transparent bg-gradient-to-t flex flex-col justify-end leading-none uppercase">
@@ -197,13 +216,13 @@ const Game = (props: {
         }
       >
         <div
-          ref={props.refs[2]}
+          ref={props.refs[3]}
           class="absolute inset-0 flex flex-col items-center justify-center"
         >
           <div class="text-red-500 text-8xl flex items-center">x</div>
         </div>
         <div
-          ref={props.refs[3]}
+          ref={props.refs[4]}
           class="absolute inset-0 bg-gradient-to-t from-red-500/90 via-transparent to-transparent flex flex-col justify-end px-2 py-1 uppercase text-xl"
         >
           <div class="text-xl leading-none uppercase">{props.game?.map}</div>

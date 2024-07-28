@@ -52,6 +52,7 @@ const Bracket = () => {
                 const winner = createMemo(() => {
                   if (match()[0][1] >= 2) return 0;
                   if (match()[1][1] >= 2) return 1;
+                  return null;
                 });
 
                 return (
@@ -73,7 +74,12 @@ const Bracket = () => {
                             <div
                               class={clsx(
                                 "flex",
-                                t === winner() ? "bg-yellow" : "bg-black/50"
+                                winner() !== null && t !== winner()
+                                  ? "bg-black opacity-50"
+                                  : {
+                                      "bg-yellow/50": winner() === null,
+                                      "bg-yellow": winner() === t,
+                                    }
                               )}
                             >
                               <div class="flex items-center py-1 px-2 gap-2 w-80">

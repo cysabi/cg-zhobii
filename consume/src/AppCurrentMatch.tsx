@@ -7,7 +7,7 @@ import {
   Select,
   TextField,
 } from "@suid/material";
-import bento, { client, getSeries, maps } from "./utils";
+import bento, { client, findWinner, getSeries, maps } from "./utils";
 import { Match, State } from "../types";
 import clsx from "clsx";
 
@@ -111,11 +111,8 @@ const SetPickBans = (props: { match: Match }) => {
           const winner = createMemo(() => {
             const g = game();
             if (!("scoreline" in g)) return null;
-            return (
-              [props.match.teamA, props.match.teamB][
-                g.scoreline.findIndex((score) => score === 13)
-              ] ?? null
-            );
+
+            return findWinner(g.scoreline) ?? null;
           });
 
           return (

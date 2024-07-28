@@ -5,7 +5,7 @@ import {
   onCleanup,
   Show,
 } from "solid-js";
-import bento, { maps } from "./utils";
+import bento, { findWinner, maps } from "./utils";
 import { State } from "../types";
 import clsx from "clsx";
 import gsap from "gsap";
@@ -108,21 +108,20 @@ const Game = (props: {
   teams: State["teams"];
   game: State["matches"][number]["games"][number];
 }) => {
-  const mapImg = createMemo(() => maps[props.game.map!]?.img);
+  const mapImg = createMemo(() => maps[props.game?.map!]?.img);
   const ban = createMemo(() => {
-    if ("scoreline" in props.game) {
+    if (!props?.game || !("scoreline" in props?.game)) {
       return null;
     }
     return props.i % 2 ? props.teams[1] : props.teams[0];
   });
 
   const pick = createMemo(() => {
-    if (!("scoreline" in props.game)) {
+    if (!props?.game || !("scoreline" in props?.game)) {
       return null;
     }
-    const done = props.game.scoreline.findIndex((score) => score === 13);
     return {
-      done: done === -1 ? null : (done as 0 | 1),
+      done: findWinner(props.game.scoreline),
       scoreline: props.game.scoreline,
       atk: props.game.swapSides ? props.teams[1] : props.teams[0],
       def: props.game.swapSides ? props.teams[0] : props.teams[1],
@@ -130,8 +129,8 @@ const Game = (props: {
         props.i === 6
           ? "decider"
           : props.i % 2
-          ? `${props.teams[1].name} pick`
-          : `${props.teams[0].name} pick`,
+          ? `${props.teams[1]?.name} pick`
+          : `${props.teams[0]?.name} pick`,
     };
   });
 
@@ -162,7 +161,7 @@ const Game = (props: {
               <Show when={pick()?.done !== null}>
                 <div class="h-16 w-16">
                   <img
-                    src={props.teams[pick()?.done!].logo_url}
+                    src={props.teams[pick()?.done!]?.logo_url}
                     class="h-full w-full object-center"
                   />
                 </div>
@@ -181,12 +180,12 @@ const Game = (props: {
                     <div class="my-3.5">
                       <div class="leading-none uppercase flex">
                         <div class="w-11">atk:</div>
-                        <div>{pick()?.atk.name}</div>
+                        <div>{pick()?.atk?.name}</div>
                       </div>
                     </div>
                   </Show>
                   <div class="leading-none uppercase flex justify-between">
-                    <div>{props.game.map}</div>
+                    <div>{props.game?.map}</div>
                   </div>
                   <div class="text-2xl leading-none uppercase">
                     {pick()?.team}
@@ -207,7 +206,7 @@ const Game = (props: {
           ref={props.refs[3]}
           class="absolute inset-0 bg-gradient-to-t from-red-500/90 via-transparent to-transparent flex flex-col justify-end px-2 py-1 uppercase text-xl"
         >
-          <div class="text-xl leading-none uppercase">{props.game.map}</div>
+          <div class="text-xl leading-none uppercase">{props.game?.map}</div>
           <div class="text-2xl leading-none uppercase">{ban()?.name} ban</div>
         </div>
       </Show>

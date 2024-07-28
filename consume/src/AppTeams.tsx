@@ -54,7 +54,7 @@ const Teams = () => {
                                   d: "/role-d.webp",
                                   i: "/role-i.webp",
                                   s: "/role-s.webp",
-                                  f: "",
+                                  f: "/role-f.webp",
                                 }[player.role]
                               }
                             />

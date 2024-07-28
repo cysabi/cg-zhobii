@@ -16,14 +16,16 @@ export const fullReload = () => {
 };
 
 export const findWinner = (scoreline: [number, number]) => {
-  const winner = [scoreline, scoreline.toReversed()].findIndex((scoreline) => {
-    if (scoreline[0] === 13 && scoreline[1] < 13) {
-      return true;
+  const winner = [scoreline, scoreline.slice().reverse()].findIndex(
+    (scoreline) => {
+      if (scoreline[0] === 13 && scoreline[1] < 13) {
+        return true;
+      }
+      if (scoreline[0] > 13 && scoreline[0] - scoreline[1] >= 2) {
+        return true;
+      }
     }
-    if (scoreline[0] > 13 && scoreline[0] - scoreline[1] >= 2) {
-      return true;
-    }
-  });
+  ) as 0 | 1;
   if (winner > -1) {
     return winner;
   }

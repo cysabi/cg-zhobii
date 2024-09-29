@@ -9,7 +9,9 @@ import CurrentMatch from "./AppCurrentMatch";
 import Matches from "./AppMatches";
 import Timer from "./AppTimer";
 import Teams from "./AppTeams";
+import Bracket from "./AppBracket";
 import bento from "./utils";
+
 const App = () => {
   return (
     <StyledEngineProvider injectFirst>
@@ -24,8 +26,11 @@ const App = () => {
             }
           >
             <div class="flex gap-10 p-10">
-              <div class="flex-1 flex">
+              <div class="flex-1 flex flex-col gap-10">
                 <CurrentMatch />
+                <Section title="Bracket">
+                  <Bracket />
+                </Section>
               </div>
               <div class="flex-1 flex flex-col gap-10">
                 <Section title="Matches">

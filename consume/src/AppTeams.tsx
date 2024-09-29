@@ -87,9 +87,10 @@ const Teams = () => {
                         [Symbol.for("data")]: null as
                           | State["teams"][number]
                           | null,
-                        setTeam(name: string, logo_url: string) {
+                        setTeam(name: string, logo_url: string, seed: number) {
                           team[Symbol.for("data")] = {
                             name,
+                            seed,
                             logo_url,
                             rosters: [],
                           };
@@ -132,7 +133,8 @@ const Teams = () => {
                             team.flushTeam();
                             team.setTeam(
                               row[headers["Team Name"]],
-                              row[headers["Team Logo"]]
+                              row[headers["Team Logo"]],
+                              i
                             );
                           }
                           team.addPlayer({

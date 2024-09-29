@@ -16,6 +16,7 @@ export type Match = {
 export type State = {
   teams: {
     name: TeamName;
+    seed: number;
     logo_url: string;
     rosters: {
       name: string;

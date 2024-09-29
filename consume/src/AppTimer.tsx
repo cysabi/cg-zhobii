@@ -70,16 +70,16 @@ const InputChanges = ({ timer }: { timer: Accessor<State["timer"]> }) => (
         <Button
           variant="outlined"
           color="secondary"
-          onClick={() => client.act("setTimer", { value: timer().value + 30 })}
+          onClick={() => client.act("setTimer", { value: timer().value - 1 })}
         >
-          +0:30
+          -0:01
         </Button>
         <Button
           variant="outlined"
           color="secondary"
-          onClick={() => client.act("setTimer", { value: timer().value + 60 })}
+          onClick={() => client.act("setTimer", { value: timer().value + 30 })}
         >
-          +1:00
+          +0:30
         </Button>
         <Button
           variant="outlined"

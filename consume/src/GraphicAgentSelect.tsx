@@ -1,5 +1,5 @@
 import { createMemo, Index, Show } from "solid-js";
-import bento, { getSeries } from "./utils";
+import bento, { findWinner, getSeries } from "./utils";
 import clsx from "clsx";
 
 const Teams = () => {
@@ -8,11 +8,28 @@ const Teams = () => {
       ? bento().matches[bento().currentMatch!]
       : null
   );
+
+  const game = createMemo(() => {
+    const games = match()?.games;
+    if (games) {
+      return [games[2], games[3], games[6]].find((game) => {
+        const winner = findWinner(game.scoreline);
+        if (typeof winner !== "number") {
+          return true;
+        }
+      });
+    }
+  });
+
   const teams = createMemo(() => {
-    return [
+    const teams = [
       bento().teams.find((team) => team.name === match()?.teamA),
       bento().teams.find((team) => team.name === match()?.teamB),
     ];
+    if (game()?.swapSides) {
+      teams.reverse();
+    }
+    return teams;
   });
 
   return (

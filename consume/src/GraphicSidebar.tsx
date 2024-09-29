@@ -1,6 +1,7 @@
 import { createMemo, Index, Show } from "solid-js";
 import bento, { getSeries } from "./utils";
 import { encodeTime } from "./AppTimer";
+import { State } from "../types";
 
 const Sidebar = () => {
   const timer = createMemo(() => encodeTime(bento().timer.value));
@@ -27,9 +28,16 @@ const Sidebar = () => {
               return series;
             });
 
+            const teams = createMemo(() => {
+              return [
+                bento().teams.find((team) => team.name === match().teamA),
+                bento().teams.find((team) => team.name === match().teamB),
+              ].sort((a, b) => (a?.seed ?? 0) - (b?.seed ?? 0));
+            });
+
             return (
               <div class="flex items-center justify-between">
-                <TeamBox team={match().teamA} />
+                <TeamBox team={teams()[0]} />
                 <div class="w-32 flex flex-col items-center">
                   <Show
                     when={series() !== null}
@@ -42,7 +50,7 @@ const Sidebar = () => {
                     </div>
                   </Show>
                 </div>
-                <TeamBox team={match().teamB} />
+                <TeamBox team={teams()[1]} />
               </div>
             );
           }}
@@ -52,21 +60,18 @@ const Sidebar = () => {
   );
 };
 
-const TeamBox = (props: { team: string | null }) => {
-  const team = createMemo(() =>
-    bento().teams.find((team) => team.name === props.team)
-  );
+const TeamBox = (props: { team?: State["teams"][number] }) => {
   return (
     <div class="flex-1 flex flex-col items-center gap-4">
       <Show
-        when={team()}
+        when={props.team}
         fallback={<div class="text-5xl opacity-50">(tbd)</div>}
       >
         <div class="h-32 w-32">
-          <img src={team()?.logo_url} class="h-full w-full" />
+          <img src={props.team?.logo_url} class="h-full w-full" />
         </div>
         <div class="text-3xl text-center uppercase h-20 flex items-center">
-          {team()?.name}
+          {props.team?.name}
         </div>
       </Show>
     </div>

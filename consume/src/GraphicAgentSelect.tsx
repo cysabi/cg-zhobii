@@ -22,11 +22,18 @@ const Teams = () => {
   });
 
   const teams = createMemo(() => {
+    const series = getSeries(match());
     const teams = [
-      bento().teams.find((team) => team.name === match()?.teamA),
-      bento().teams.find((team) => team.name === match()?.teamB),
+      {
+        team: bento().teams.find((team) => team.name === match()?.teamA),
+        series: series[0],
+      },
+      {
+        team: bento().teams.find((team) => team.name === match()?.teamB),
+        series: series[1],
+      },
     ];
-    if (game()?.swapSides) {
+    if (!game()?.swapSides) {
       teams.reverse();
     }
     return teams;
@@ -40,7 +47,7 @@ const Teams = () => {
             <Show when={i}>
               <span class="flex mb-auto">
                 <span class="flex flex-col p-7 items-center bg-black/50">
-                  {getSeries(match())[0]}
+                  {teams()[0].series}
                 </span>
                 <div class="flex flex-col">
                   <div class="bg-black/50 flex-1"></div>
@@ -48,7 +55,7 @@ const Teams = () => {
                   <div class="bg-black/50 flex-1"></div>
                 </div>
                 <span class="flex flex-col p-7 items-center bg-black/50">
-                  {getSeries(match())[1]}
+                  {teams()[1].series}
                 </span>
               </span>
             </Show>
@@ -60,9 +67,9 @@ const Teams = () => {
                 )}
               >
                 <div class="h-14 w-14">
-                  <img src={team()?.logo_url} class="h-full w-full" />
+                  <img src={team().team?.logo_url} class="h-full w-full" />
                 </div>
-                <div>{team()?.name}</div>
+                <div>{team().team?.name}</div>
               </div>
             </div>
           </>

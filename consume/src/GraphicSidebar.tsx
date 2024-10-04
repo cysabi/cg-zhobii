@@ -20,37 +20,40 @@ const Sidebar = () => {
         <div class="z-10 absolute inset-0 border-[4px] translate-x-1.5 -translate-y-1.5 border-dashed border-black/25"></div>
         <Index each={bento().matches}>
           {(match) => {
-            const series = createMemo(() => {
-              let series = getSeries(match());
-              if (series[0] === 0 && series[1] === 0) {
-                return null;
-              }
-              return series;
-            });
-
             const teams = createMemo(() => {
+              const series = getSeries(match());
               return [
-                bento().teams.find((team) => team.name === match().teamA),
-                bento().teams.find((team) => team.name === match().teamB),
-              ].sort((a, b) => (a?.seed ?? 0) - (b?.seed ?? 0));
+                {
+                  team: bento().teams.find(
+                    (team) => team.name === match().teamA
+                  ),
+                  series: series[0],
+                },
+                {
+                  team: bento().teams.find(
+                    (team) => team.name === match().teamB
+                  ),
+                  series: series[1],
+                },
+              ].sort((a, b) => (a?.team?.seed ?? 0) - (b?.team?.seed ?? 0));
             });
 
             return (
               <div class="flex items-center justify-between">
-                <TeamBox team={teams()[0]} />
+                <TeamBox team={teams()[0].team} />
                 <div class="w-32 flex flex-col items-center">
                   <Show
-                    when={series() !== null}
+                    when={teams() !== null}
                     fallback={
                       <div class="font-bold text-7xl tracking-wider">VS</div>
                     }
                   >
                     <div class="font-bold text-7xl tracking-wider">
-                      {series()![0]}-{series()![1]}
+                      {teams()[0].series}-{teams()[1].series}
                     </div>
                   </Show>
                 </div>
-                <TeamBox team={teams()[1]} />
+                <TeamBox team={teams()[1].team} />
               </div>
             );
           }}

@@ -80,6 +80,9 @@ export const maps: Record<string, { img: string }> = {
   abyss: {
     img: "/Loading_Screen_Abyss.webp",
   },
+  corrode: {
+    img: "/Loading_Screen_Corrode.webp",
+  },
 };
 
 export default bento as Accessor<State>;

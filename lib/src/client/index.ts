@@ -1,11 +1,11 @@
-import { pack, unpack } from "msgpackr";
+import { encode, decode } from "msgpack-lite";
 
 export class Client<S> {
   #dispatch;
   #ws: WebSocket;
 
   act(action: string, payload: any) {
-    this.#ws.send(pack({ type: "action", action, payload }));
+    this.#ws.send(encode({ type: "action", action, payload }));
   }
 
   constructor(dispatch: (state: S) => void) {
@@ -14,10 +14,10 @@ export class Client<S> {
     this.#ws = new WebSocket(`ws://${window.location.hostname}:4400/_ws`);
     this.#ws.binaryType = "arraybuffer";
     this.#ws.onopen = () => {
-      this.#ws.send(pack({ type: "init" }));
+      this.#ws.send(encode({ type: "init" }));
     };
     this.#ws.onmessage = (event) => {
-      const data = unpack(event.data);
+      const data = decode(event.data);
 
       switch (data.type) {
         case "emit": {

@@ -11,8 +11,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@types/msgpack-lite": "^0.1.11",
     "bento": "../lib/",
-    "consola": "^3.2.3"
+    "consola": "^3.2.3",
+    "msgpack-lite": "^0.1.26"
   },
   "devDependencies": {
     "@solid-primitives/upload": "^0.0.117",

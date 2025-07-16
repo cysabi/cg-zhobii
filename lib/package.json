@@ -10,6 +10,7 @@
   "dependencies": {
     "@types/bun": "latest",
     "@types/icepick": "^2.3.3",
+    "@types/msgpack-lite": "^0.1.11",
     "citty": "^0.1.6",
     "consola": "^3.2.3",
     "crossws": "^0.2.4",
@@ -19,7 +20,7 @@
     "listhen": "^1.7.2",
     "lmdb": "^3.0.12",
     "lowdb": "^7.0.1",
-    "msgpackr": "^1.10.2"
+    "msgpack-lite": "^0.1.26"
   },
   "scripts": {
     "download-lmdb-prebuilds": "download-lmdb-prebuilds"

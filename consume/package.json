@@ -6,15 +6,14 @@
   "scripts": {
     "dev": "bun --bun ./bento.box.ts",
     "build": "tsc && vite build",
-    "compile": "bun build --compile --target=bun-windows-x64 ./bento.box.ts --outfile cg-zhobii",
+    "compile": "bun build --compile --target=bun-windows-x64-baseline ./bento.box.ts --outfile cg-zhobii",
     "zip": "zip -r cg-zhobii.zip cg-zhobii.exe dist",
     "preview": "vite preview"
   },
   "dependencies": {
     "@types/msgpack-lite": "^0.1.11",
     "bento": "../lib/",
-    "consola": "^3.2.3",
-    "msgpack-lite": "^0.1.26"
+    "consola": "^3.2.3"
   },
   "devDependencies": {
     "@solid-primitives/upload": "^0.0.117",

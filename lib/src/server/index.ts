@@ -8,7 +8,6 @@ import type {
   Actions,
   ServerConfig,
 } from "../types";
-import { encode, decode } from "msgpack-lite";
 import { LowSync } from "lowdb";
 import { JSONFileSync } from "lowdb/node";
 import consola from "consola";
@@ -32,7 +31,7 @@ export class Server<S extends Record<string, unknown>> {
 
     this.wss = {
       message: (ws, msg) => {
-        const data: Message = decode(msg.rawData);
+        const data: Message = JSON.parse(msg.rawData as string);
 
         consola.log(colorize("dim", `ws ~ message ~ ${JSON.stringify(data)}`));
 
@@ -75,6 +74,6 @@ export class Server<S extends Record<string, unknown>> {
   }
 
   #emit({ ws }: Emit) {
-    return ws.send(encode({ type: "emit", state: this.#state.data }));
+    return ws.send({ type: "emit", state: this.#state.data });
   }
 }

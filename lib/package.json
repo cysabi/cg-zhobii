@@ -19,8 +19,7 @@
     "icepick": "^2.4.0",
     "listhen": "^1.7.2",
     "lmdb": "^3.0.12",
-    "lowdb": "^7.0.1",
-    "msgpack-lite": "^0.1.26"
+    "lowdb": "^7.0.1"
   },
   "scripts": {
     "download-lmdb-prebuilds": "download-lmdb-prebuilds"
